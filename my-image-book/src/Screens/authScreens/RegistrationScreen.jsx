@@ -2,8 +2,8 @@ import {
   View,
   Text,
   TouchableOpacity,
-  ImageBackground,
   TextInput,
+  ImageBackground,
 } from "react-native";
 import { authStyles } from "./authSlyles";
 
@@ -19,6 +19,10 @@ const RegistrationScreen = () => {
     loginBtn,
     loginBtnTitle,
     showPasswordBtn,
+    showPasswordText,
+    passwordInput,
+    isAccount,
+    isAccountText,
   } = authStyles;
 
   return (
@@ -52,21 +56,24 @@ const RegistrationScreen = () => {
           placeholder="Email"
           placeholderTextColor="#BDBDBD"
         />
-        <View>
+        <View style={passwordInput}>
           <TextInput
             style={input}
             secureTextEntry={true}
-            keyboardType="numeric"
-            placeholder="Password (only digits)"
+            keyboardType="default"
+            placeholder="Password"
             placeholderTextColor="#BDBDBD"
           />
-          <TouchableOpacity style={showPasswordBtn} activeOpacity={0.7}>
-            Show
+          <TouchableOpacity style={showPasswordBtn} activeOpacity={0.5}>
+            <Text style={showPasswordText}>Show</Text>
           </TouchableOpacity>
         </View>
       </View>
       <TouchableOpacity style={loginBtn} activeOpacity={0.7}>
         <Text style={loginBtnTitle}>Register</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={isAccount} activeOpacity={0.7}>
+        <Text style={isAccountText}>Already have an account? Log in</Text>
       </TouchableOpacity>
     </View>
   );
