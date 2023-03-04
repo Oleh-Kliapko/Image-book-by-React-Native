@@ -15,7 +15,6 @@ export const authStyles = StyleSheet.create({
   form: {
     alignItems: "center",
     width: "100%",
-    height: 488,
     backgroundColor: "#fff",
     borderTopRightRadius: 25,
     borderTopLeftRadius: 25,
@@ -35,28 +34,23 @@ export const authStyles = StyleSheet.create({
     width: 25,
     height: 25,
     borderRadius: 25,
-    borderWidth: 1,
     borderColor: "#FF6C00",
     backgroundColor: "#fff",
   },
-  addPhotoText: {
-    marginTop: -4,
-    paddingTop: 0,
-    fontSize: 22,
-    color: "#FF6C00",
-  },
   title: {
-    // fontFamily: "Arial",
+    fontFamily: "Roboto-Medium",
     fontWeight: "500",
     fontSize: 30,
-    paddingVertical: 24,
+    paddingVertical: 32,
     letterSpacing: 0.2,
     lineHeight: 35,
   },
   formInput: {
-    gap: 12,
+    gap: 16,
   },
   input: {
+    fontFamily: "Roboto-Regular",
+    fontSize: 16,
     width: 343,
     height: 50,
     backgroundColor: "#F6F6F6",
@@ -65,7 +59,6 @@ export const authStyles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "#E8E8E8",
     paddingLeft: 16,
-    fontSize: 16,
   },
   passwordInput: {
     flexDirection: "row",
@@ -74,11 +67,9 @@ export const authStyles = StyleSheet.create({
   showPasswordBtn: {
     marginLeft: -60,
   },
-  showPasswordText: {
-    padding: 0,
-    margin: 0,
-    fontSize: 16,
-    color: "#1B4371",
+  showPasswordIcon: {
+    width: 30,
+    height: 30,
   },
   loginBtn: {
     alignItems: "center",
@@ -86,10 +77,11 @@ export const authStyles = StyleSheet.create({
     width: 343,
     height: 50,
     backgroundColor: "#FF6C00",
-    marginTop: 32,
+    marginTop: 43,
     borderRadius: 100,
   },
   loginBtnTitle: {
+    fontFamily: "Roboto-Regular",
     fontSize: 16,
     lineHeight: 19,
     color: "#fff",
@@ -98,7 +90,8 @@ export const authStyles = StyleSheet.create({
     marginTop: 16,
   },
   isAccountText: {
-    color: "#1B4371",
+    fontFamily: "Roboto-Regular",
     fontSize: 16,
+    color: "#1B4371",
   },
 });
