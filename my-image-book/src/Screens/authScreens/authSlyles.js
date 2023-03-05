@@ -4,37 +4,36 @@ export const authStyles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff",
-    alignItems: "center",
   },
   imgBg: {
     flex: 1,
-    width: "100%",
     resizeMode: "cover",
+    alignItems: "center",
     justifyContent: "flex-end",
   },
   form: {
     alignItems: "center",
     width: "100%",
+    // paddingHorizontal: 16,
     backgroundColor: "#fff",
     borderTopRightRadius: 25,
     borderTopLeftRadius: 25,
   },
-  addPhoto: {
+  addAvatar: {
     marginTop: -60,
     width: 132,
     height: 120,
     backgroundColor: "#F6F6F6",
     borderRadius: 16,
   },
-  addPhotoBtn: {
+  addAvatarBtn: {
     marginTop: 81,
     marginLeft: 119.5,
     alignItems: "center",
     justifyContent: "center",
   },
   title: {
-    fontFamily: "Roboto-Medium",
-    fontWeight: "500",
+    // fontFamily: "Roboto-Medium",
     fontSize: 30,
     paddingVertical: 32,
     letterSpacing: 0.2,
@@ -44,7 +43,6 @@ export const authStyles = StyleSheet.create({
     gap: 16,
   },
   input: {
-    fontFamily: "Roboto-Regular",
     fontSize: 16,
     width: 343,
     height: 50,
@@ -62,10 +60,6 @@ export const authStyles = StyleSheet.create({
   showPasswordBtn: {
     marginLeft: -60,
   },
-  // showPasswordIcon: {
-  //   width: 30,
-  //   height: 30,
-  // },
   loginBtn: {
     alignItems: "center",
     justifyContent: "center",
@@ -76,7 +70,6 @@ export const authStyles = StyleSheet.create({
     borderRadius: 100,
   },
   loginBtnTitle: {
-    fontFamily: "Roboto-Regular",
     fontSize: 16,
     lineHeight: 19,
     color: "#fff",
@@ -85,7 +78,6 @@ export const authStyles = StyleSheet.create({
     marginTop: 16,
   },
   isAccountText: {
-    fontFamily: "Roboto-Regular",
     fontSize: 16,
     color: "#1B4371",
   },

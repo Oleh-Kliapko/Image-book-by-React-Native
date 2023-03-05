@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { StatusBar } from "expo-status-bar";
 import {
   ImageBackground,
@@ -6,12 +7,24 @@ import {
   Platform,
   TouchableWithoutFeedback,
   Keyboard,
+  Dimensions,
 } from "react-native";
 import { authStyles } from "./authSlyles";
 import RegistrationScreen from "./RegistrationScreen";
+import LoginScreen from "./LoginScreen";
+
+const { container, imgBg, form } = authStyles;
 
 const AuthScreen = () => {
-  const { container, imgBg } = authStyles;
+  const [dimensions, setDimensions] = useState(Dimensions.get("window").width);
+
+  useEffect(() => {
+    const subscription = Dimensions.addEventListener("change", ({ window }) => {
+      setDimensions(window.width);
+    });
+    return () => subscription?.remove();
+  }, []);
+
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <KeyboardAvoidingView
@@ -23,7 +36,18 @@ const AuthScreen = () => {
             style={imgBg}
             source={require("./images/bgImage.jpg")}
           >
-            <RegistrationScreen />
+            <RegistrationScreen
+              style={{
+                ...form,
+                width: dimensions,
+              }}
+            />
+            <LoginScreen
+              style={{
+                ...form,
+                width: dimensions,
+              }}
+            />
           </ImageBackground>
           <StatusBar style="auto" />
         </View>
