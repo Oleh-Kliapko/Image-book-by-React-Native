@@ -1,14 +1,8 @@
 import { useState } from "react";
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  TextInput,
-  Image,
-  KeyboardAvoidingView,
-  Platform,
-} from "react-native";
+import { View, Text, TouchableOpacity, TextInput, Image } from "react-native";
 import { authStyles } from "./authSlyles";
+import AvatarIcon from "../../components/svg/AvatarIcon";
+import EyeOffIcon from "../../components/svg/EyeOffIcon";
 
 const {
   form,
@@ -34,10 +28,11 @@ const RegistrationScreen = () => {
     <View style={{ ...form, paddingBottom: isKeyboard ? 32 : 78 }}>
       <View style={addPhoto}>
         <TouchableOpacity>
-          <Image
+          <AvatarIcon style={addPhotoBtn} />
+          {/* <Image
             style={addPhotoBtn}
             source={require("./images/addPhotoBtn.jpg")}
-          ></Image>
+          ></Image> */}
         </TouchableOpacity>
       </View>
       <Text style={title}>Registration</Text>
@@ -69,14 +64,15 @@ const RegistrationScreen = () => {
             onEndEditing={() => setIsKeyboard(false)}
           />
           <TouchableOpacity
-            style={showPasswordBtn}
+            // style={showPasswordBtn}
             activeOpacity={0.5}
             onPress={() => setIsShowPassword((prev) => !prev)}
           >
-            <Image
+            <EyeOffIcon style={showPasswordIcon} />
+            {/* <Image
               style={showPasswordIcon}
               source={require("./images/eye.png")}
-            ></Image>
+            ></Image> */}
           </TouchableOpacity>
         </View>
       </View>

@@ -31,11 +31,6 @@ export const authStyles = StyleSheet.create({
     marginLeft: 119.5,
     alignItems: "center",
     justifyContent: "center",
-    width: 25,
-    height: 25,
-    borderRadius: 25,
-    borderColor: "#FF6C00",
-    backgroundColor: "#fff",
   },
   title: {
     fontFamily: "Roboto-Medium",
@@ -68,8 +63,9 @@ export const authStyles = StyleSheet.create({
     marginLeft: -60,
   },
   showPasswordIcon: {
-    width: 30,
-    height: 30,
+    position: "absolute",
+    top: -10,
+    left: -40,
   },
   loginBtn: {
     alignItems: "center",
