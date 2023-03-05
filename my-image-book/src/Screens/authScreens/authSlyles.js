@@ -62,11 +62,10 @@ export const authStyles = StyleSheet.create({
   showPasswordBtn: {
     marginLeft: -60,
   },
-  showPasswordIcon: {
-    position: "absolute",
-    top: -10,
-    left: -40,
-  },
+  // showPasswordIcon: {
+  //   width: 30,
+  //   height: 30,
+  // },
   loginBtn: {
     alignItems: "center",
     justifyContent: "center",

@@ -1,8 +1,7 @@
 import { useState } from "react";
-import { View, Text, TouchableOpacity, TextInput, Image } from "react-native";
+import { View, Text, TouchableOpacity, TextInput } from "react-native";
 import { authStyles } from "./authSlyles";
-import AvatarIcon from "../../components/svg/AvatarIcon";
-import EyeOffIcon from "../../components/svg/EyeOffIcon";
+import { AvatarIcon, EyeOffIcon, EyeOnIcon } from "../../components/svg";
 
 const {
   form,
@@ -14,7 +13,6 @@ const {
   loginBtn,
   loginBtnTitle,
   showPasswordBtn,
-  showPasswordIcon,
   passwordInput,
   isAccount,
   isAccountText,
@@ -29,10 +27,6 @@ const RegistrationScreen = () => {
       <View style={addPhoto}>
         <TouchableOpacity>
           <AvatarIcon style={addPhotoBtn} />
-          {/* <Image
-            style={addPhotoBtn}
-            source={require("./images/addPhotoBtn.jpg")}
-          ></Image> */}
         </TouchableOpacity>
       </View>
       <Text style={title}>Registration</Text>
@@ -64,15 +58,11 @@ const RegistrationScreen = () => {
             onEndEditing={() => setIsKeyboard(false)}
           />
           <TouchableOpacity
-            // style={showPasswordBtn}
+            style={showPasswordBtn}
             activeOpacity={0.5}
             onPress={() => setIsShowPassword((prev) => !prev)}
           >
-            <EyeOffIcon style={showPasswordIcon} />
-            {/* <Image
-              style={showPasswordIcon}
-              source={require("./images/eye.png")}
-            ></Image> */}
+            {isShowPassword ? <EyeOnIcon /> : <EyeOffIcon />}
           </TouchableOpacity>
         </View>
       </View>
