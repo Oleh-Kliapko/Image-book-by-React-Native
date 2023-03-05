@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React from "react";
 import { StatusBar } from "expo-status-bar";
 import {
   ImageBackground,
@@ -7,24 +7,18 @@ import {
   Platform,
   TouchableWithoutFeedback,
   Keyboard,
-  Dimensions,
 } from "react-native";
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
 import { authStyles } from "./authSlyles";
 import RegistrationScreen from "./RegistrationScreen";
 import LoginScreen from "./LoginScreen";
 
-const { container, imgBg, form } = authStyles;
+const { container, imgBg } = authStyles;
+
+const AuthStack = createStackNavigator();
 
 const AuthScreen = () => {
-  const [dimensions, setDimensions] = useState(Dimensions.get("window").width);
-
-  useEffect(() => {
-    const subscription = Dimensions.addEventListener("change", ({ window }) => {
-      setDimensions(window.width);
-    });
-    return () => subscription?.remove();
-  }, []);
-
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <KeyboardAvoidingView
@@ -36,18 +30,16 @@ const AuthScreen = () => {
             style={imgBg}
             source={require("./images/bgImage.jpg")}
           >
-            <RegistrationScreen
-              style={{
-                ...form,
-                width: dimensions,
-              }}
-            />
-            <LoginScreen
-              style={{
-                ...form,
-                width: dimensions,
-              }}
-            />
+            {/* <RegistrationScreen /> */}
+            <NavigationContainer>
+              <AuthStack.Navigator>
+                <AuthStack.Screen
+                  name="registration"
+                  component={RegistrationScreen}
+                />
+                <AuthStack.Screen name="login" component={LoginScreen} />
+              </AuthStack.Navigator>
+            </NavigationContainer>
           </ImageBackground>
           <StatusBar style="auto" />
         </View>

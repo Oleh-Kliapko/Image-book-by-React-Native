@@ -1,13 +1,17 @@
-import { useState } from "react";
-import { View, Text, TouchableOpacity, TextInput } from "react-native";
+import { useState, useEffect } from "react";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  TextInput,
+  Dimensions,
+} from "react-native";
 import { authStyles } from "./authSlyles";
-import { AvatarIcon, EyeOffIcon, EyeOnIcon } from "../../components/svg";
+import { EyeOffIcon, EyeOnIcon } from "../../components/svg";
 
 const {
   form,
   title,
-  addAvatar,
-  addAvatarBtn,
   formInput,
   input,
   loginBtn,
@@ -33,6 +37,14 @@ const LoginScreen = () => {
   const [isShowPassword, setIsShowPassword] = useState(false);
   const [isKeyboard, setIsKeyboard] = useState(false);
   const [isFocus, setIsFocus] = useState(initialFocus);
+  const [dimensions, setDimensions] = useState(Dimensions.get("window").width);
+
+  useEffect(() => {
+    const subscription = Dimensions.addEventListener("change", ({ window }) => {
+      setDimensions(window.width);
+    });
+    return () => subscription?.remove();
+  }, []);
 
   const handleFocus = (inputName) => {
     setIsKeyboard(true);
@@ -51,7 +63,13 @@ const LoginScreen = () => {
   };
 
   return (
-    <View style={{ ...form, paddingBottom: isKeyboard ? 32 : 78 }}>
+    <View
+      style={{
+        ...form,
+        paddingBottom: isKeyboard ? 32 : 78,
+        width: dimensions,
+      }}
+    >
       <Text style={title}>Log In</Text>
       <View style={formInput}>
         <TextInput
