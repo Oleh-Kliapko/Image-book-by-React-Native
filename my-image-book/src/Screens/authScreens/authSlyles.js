@@ -14,7 +14,6 @@ export const authStyles = StyleSheet.create({
   form: {
     alignItems: "center",
     width: "100%",
-    // paddingHorizontal: 16,
     backgroundColor: "#fff",
     borderTopRightRadius: 25,
     borderTopLeftRadius: 25,
@@ -33,7 +32,7 @@ export const authStyles = StyleSheet.create({
     justifyContent: "center",
   },
   title: {
-    // fontFamily: "Roboto-Medium",
+    fontFamily: "Roboto-Medium",
     fontSize: 30,
     paddingVertical: 32,
     letterSpacing: 0.2,

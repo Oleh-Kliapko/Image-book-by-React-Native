@@ -1,13 +1,16 @@
-import { useState, useEffect } from "react";
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  TextInput,
-  Dimensions,
-} from "react-native";
+import { useState } from "react";
+import { useNavigation } from "@react-navigation/native";
+import { View, Text, TouchableOpacity, TextInput } from "react-native";
+import Toast from "react-native-toast-message";
+
 import { authStyles } from "./authSlyles";
+import KeyboardWrapper from "../../components/KeyboardWrapper/KeyboardWrapper";
 import { EyeOffIcon, EyeOnIcon } from "../../components/svg";
+import {
+  toastConfig,
+  successLoginToast,
+  errorFormToast,
+} from "../../utils/toasts";
 
 const {
   form,
@@ -37,14 +40,11 @@ const LoginScreen = () => {
   const [isShowPassword, setIsShowPassword] = useState(false);
   const [isKeyboard, setIsKeyboard] = useState(false);
   const [isFocus, setIsFocus] = useState(initialFocus);
-  const [dimensions, setDimensions] = useState(Dimensions.get("window").width);
+  const navigation = useNavigation();
 
-  useEffect(() => {
-    const subscription = Dimensions.addEventListener("change", ({ window }) => {
-      setDimensions(window.width);
-    });
-    return () => subscription?.remove();
-  }, []);
+  const handleGoToRegistration = () => {
+    navigation.navigate("registration");
+  };
 
   const handleFocus = (inputName) => {
     setIsKeyboard(true);
@@ -57,77 +57,97 @@ const LoginScreen = () => {
   };
 
   const onSubmitForm = () => {
+    const { email, password } = userData;
+
+    if (!email || !password) {
+      errorFormToast();
+      return;
+    }
+    successLoginToast();
+
     setIsKeyboard(false);
     console.log(userData);
     setUserData(initialUserData);
   };
 
   return (
-    <View
-      style={{
-        ...form,
-        paddingBottom: isKeyboard ? 32 : 78,
-        width: dimensions,
-      }}
-    >
-      <Text style={title}>Log In</Text>
-      <View style={formInput}>
-        <TextInput
-          style={{
-            ...input,
-            borderColor: isFocus.email ? "#FF6C00" : "#E8E8E8",
-          }}
-          keyboardType="email-address"
-          placeholder="Email"
-          placeholderTextColor="#BDBDBD"
-          value={userData.email}
-          onFocus={() => handleFocus("email")}
-          onEndEditing={() => handleEndFocus("email")}
-          onChangeText={(value) =>
-            setUserData((prevState) => ({ ...prevState, email: value }))
-          }
-        />
-        <View style={passwordInput}>
+    <KeyboardWrapper>
+      <View
+        style={{
+          ...form,
+          paddingBottom: isKeyboard ? 32 : 78,
+        }}
+      >
+        <Text style={title}>Log In</Text>
+        <View style={formInput}>
           <TextInput
             style={{
               ...input,
-              borderColor: isFocus.password ? "#FF6C00" : "#E8E8E8",
+              borderColor: isFocus.email ? "#FF6C00" : "#E8E8E8",
             }}
-            secureTextEntry={!isShowPassword}
-            keyboardType="default"
-            placeholder="Password"
+            keyboardType="email-address"
+            placeholder="Email"
             placeholderTextColor="#BDBDBD"
-            value={userData.password}
-            onFocus={() => handleFocus("password")}
-            onEndEditing={() => handleEndFocus("password")}
+            value={userData.email}
+            onFocus={() => handleFocus("email")}
+            onEndEditing={() => handleEndFocus("email")}
             onChangeText={(value) =>
-              setUserData((prevState) => ({ ...prevState, password: value }))
+              setUserData((prevState) => ({
+                ...prevState,
+                email: value.trim(),
+              }))
             }
           />
-          <TouchableOpacity
-            style={showPasswordBtn}
-            activeOpacity={0.5}
-            onPress={() => setIsShowPassword((prev) => !prev)}
-          >
-            {isShowPassword ? <EyeOnIcon /> : <EyeOffIcon />}
-          </TouchableOpacity>
+          <View style={passwordInput}>
+            <TextInput
+              style={{
+                ...input,
+                borderColor: isFocus.password ? "#FF6C00" : "#E8E8E8",
+              }}
+              secureTextEntry={!isShowPassword}
+              keyboardType="default"
+              placeholder="Password"
+              placeholderTextColor="#BDBDBD"
+              value={userData.password}
+              onFocus={() => handleFocus("password")}
+              onEndEditing={() => handleEndFocus("password")}
+              onChangeText={(value) =>
+                setUserData((prevState) => ({
+                  ...prevState,
+                  password: value.trim(),
+                }))
+              }
+            />
+            <TouchableOpacity
+              style={showPasswordBtn}
+              activeOpacity={0.5}
+              onPress={() => setIsShowPassword((prev) => !prev)}
+            >
+              {isShowPassword ? <EyeOnIcon /> : <EyeOffIcon />}
+            </TouchableOpacity>
+          </View>
         </View>
+        {!isKeyboard && (
+          <>
+            <TouchableOpacity
+              style={loginBtn}
+              activeOpacity={0.7}
+              onPress={onSubmitForm}
+            >
+              <Text style={loginBtnTitle}>Log In</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={isAccount}
+              activeOpacity={0.7}
+              onPress={handleGoToRegistration}
+            >
+              <Text style={isAccountText}>Don't have an account? Register</Text>
+            </TouchableOpacity>
+          </>
+        )}
       </View>
-      {!isKeyboard && (
-        <>
-          <TouchableOpacity
-            style={loginBtn}
-            activeOpacity={0.7}
-            onPress={onSubmitForm}
-          >
-            <Text style={loginBtnTitle}>Log In</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={isAccount} activeOpacity={0.7}>
-            <Text style={isAccountText}>Don't have an account? Register</Text>
-          </TouchableOpacity>
-        </>
-      )}
-    </View>
+      <Toast position="top" topOffset={60} config={toastConfig} />
+    </KeyboardWrapper>
   );
 };
 

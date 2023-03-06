@@ -1,6 +1,6 @@
 import Svg, { Path, Circle } from "react-native-svg";
 
-const AvatarIcon = (props) => {
+const AddAvatarIcon = (props) => {
   return (
     <Svg
       width={25}
@@ -20,4 +20,4 @@ const AvatarIcon = (props) => {
   );
 };
 
-export default AvatarIcon;
+export default AddAvatarIcon;
