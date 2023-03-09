@@ -96,8 +96,7 @@ const RegistrationScreen = () => {
               borderColor: isFocus.userName ? "#FF6C00" : "#E8E8E8",
             }}
             keyboardType="default"
-            placeholder="Login (more than 6 characters long)"
-            minLength={6}
+            placeholder="Login"
             placeholderTextColor="#BDBDBD"
             value={userData.userName}
             onFocus={() => handleFocus("userName")}

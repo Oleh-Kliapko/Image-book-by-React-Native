@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import { fonts } from "../../utils/fonts";
 
 export const authStyles = StyleSheet.create({
   container: {
@@ -32,7 +33,7 @@ export const authStyles = StyleSheet.create({
     justifyContent: "center",
   },
   title: {
-    // fontFamily: "Roboto-Medium",
+    fontFamily: fonts.robotoMedium,
     fontSize: 30,
     paddingVertical: 32,
     letterSpacing: 0.2,
@@ -42,6 +43,7 @@ export const authStyles = StyleSheet.create({
     gap: 16,
   },
   input: {
+    fontFamily: fonts.robotoRegular,
     fontSize: 16,
     width: 343,
     height: 50,
@@ -69,6 +71,7 @@ export const authStyles = StyleSheet.create({
     borderRadius: 100,
   },
   loginBtnTitle: {
+    fontFamily: fonts.robotoRegular,
     fontSize: 16,
     lineHeight: 19,
     color: "#fff",
@@ -77,6 +80,7 @@ export const authStyles = StyleSheet.create({
     marginTop: 16,
   },
   isAccountText: {
+    fontFamily: fonts.robotoRegular,
     fontSize: 16,
     color: "#1B4371",
   },

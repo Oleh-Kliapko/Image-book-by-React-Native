@@ -18,7 +18,6 @@ const { container, imgBg } = authStyles;
 
 const KeyboardWrapper = ({ children }) => {
   const [dimensions, setDimensions] = useState(Dimensions.get("window").width);
-  SplashScreen.preventAutoHideAsync();
 
   useEffect(() => {
     const subscription = Dimensions.addEventListener("change", ({ window }) => {
