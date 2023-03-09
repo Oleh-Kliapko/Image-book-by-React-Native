@@ -39,9 +39,9 @@ const KeyboardWrapper = ({ children }) => {
     }
   }, [fontsLoader]);
 
-  // if (!fontsLoader) {
-  //   return null;
-  // }
+  if (!fontsLoader) {
+    return null;
+  }
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
