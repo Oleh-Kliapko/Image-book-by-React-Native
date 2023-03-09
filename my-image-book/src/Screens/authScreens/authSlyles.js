@@ -32,7 +32,7 @@ export const authStyles = StyleSheet.create({
     justifyContent: "center",
   },
   title: {
-    fontFamily: "Roboto-Medium",
+    // fontFamily: "Roboto-Medium",
     fontSize: 30,
     paddingVertical: 32,
     letterSpacing: 0.2,
