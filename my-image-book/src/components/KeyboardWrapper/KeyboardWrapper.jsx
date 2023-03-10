@@ -10,11 +10,11 @@ import {
 } from "react-native";
 import * as SplashScreen from "expo-splash-screen";
 import { StatusBar } from "expo-status-bar";
-import { authStyles } from "../../Screens/authScreens/authSlyles";
+import { globalStyles } from "../../utils/globalStyles";
 import { useFonts } from "expo-font";
 import { fonts } from "../../utils/fonts";
 
-const { container, imgBg } = authStyles;
+const { container, imgBg } = globalStyles;
 
 const KeyboardWrapper = ({ children }) => {
   const [dimensions, setDimensions] = useState(Dimensions.get("window").width);

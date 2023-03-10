@@ -2,16 +2,6 @@ import { StyleSheet } from "react-native";
 import { fonts } from "../../utils/fonts";
 
 export const authStyles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-  },
-  imgBg: {
-    flex: 1,
-    resizeMode: "cover",
-    alignItems: "center",
-    justifyContent: "flex-end",
-  },
   form: {
     alignItems: "center",
     width: "100%",
