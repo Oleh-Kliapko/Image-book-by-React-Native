@@ -1,30 +1,34 @@
-import Svg, { Path } from "react-native-svg";
+import Svg, { Path, G, Rect, Defs, ClipPath } from "react-native-svg";
+import { globalStyles } from "../../utils/globalStyles";
 
-const UserIcon = (props) => {
+const UserIcon = ({ focused }) => {
+  const color = focused ? "#FFFFFF" : "#212121";
+  const bgcBtn = focused ? "#FF6C00" : "#F6F6F6";
+
   return (
-    <Svg
-      width={24}
-      height={24}
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      {...props}
-    >
+    <Svg style={globalStyles.menuBtn} fill="none">
+      <G clipPath="url(#clip0_34656_96)">
+        <Rect width="70" height="40" rx="20" fill={bgcBtn} />
+      </G>
       <Path
-        d="M20 21V19C20 16.7909 18.2091 15 16 15H8C5.79086 15 4 16.7909 4 19V21"
-        stroke="#212121"
-        strokeOpacity="0.8"
+        d="M43 29V27C43 24.7909 41.2091 23 39 23H31C28.7909 23 27 24.7909 27 27V29"
+        stroke={color}
         strokeLinecap="round"
         strokeLinejoin="round"
       />
       <Path
-        fill-rule="evenodd"
-        clip-rule="evenodd"
-        d="M12 11C14.2091 11 16 9.20914 16 7C16 4.79086 14.2091 3 12 3C9.79086 3 8 4.79086 8 7C8 9.20914 9.79086 11 12 11Z"
-        stroke="#212121"
-        strokeOpacity="0.8"
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M35 19C37.2091 19 39 17.2091 39 15C39 12.7909 37.2091 11 35 11C32.7909 11 31 12.7909 31 15C31 17.2091 32.7909 19 35 19Z"
+        stroke={color}
         strokeLinecap="round"
         strokeLinejoin="round"
       />
+      <Defs>
+        <ClipPath id="clip0_34656_96">
+          <Rect width="70" height="40" fill={color} />
+        </ClipPath>
+      </Defs>
     </Svg>
   );
 };

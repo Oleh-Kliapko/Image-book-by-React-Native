@@ -2,25 +2,18 @@ import { StyleSheet } from "react-native";
 import { fonts } from "../../utils/fonts";
 
 export const authStyles = StyleSheet.create({
+  imgBg: {
+    flex: 1,
+    resizeMode: "cover",
+    alignItems: "center",
+    justifyContent: "flex-end",
+  },
   form: {
     alignItems: "center",
     width: "100%",
     backgroundColor: "#fff",
     borderTopRightRadius: 25,
     borderTopLeftRadius: 25,
-  },
-  addAvatar: {
-    marginTop: -60,
-    width: 132,
-    height: 120,
-    backgroundColor: "#F6F6F6",
-    borderRadius: 16,
-  },
-  addAvatarBtn: {
-    marginTop: 81,
-    marginLeft: 119.5,
-    alignItems: "center",
-    justifyContent: "center",
   },
   title: {
     fontFamily: fonts.robotoMedium,
@@ -50,21 +43,6 @@ export const authStyles = StyleSheet.create({
   },
   showPasswordBtn: {
     marginLeft: -60,
-  },
-  loginBtn: {
-    alignItems: "center",
-    justifyContent: "center",
-    width: 343,
-    height: 50,
-    backgroundColor: "#FF6C00",
-    marginTop: 43,
-    borderRadius: 100,
-  },
-  loginBtnTitle: {
-    fontFamily: fonts.robotoRegular,
-    fontSize: 16,
-    lineHeight: 19,
-    color: "#fff",
   },
   isAccount: {
     marginTop: 16,

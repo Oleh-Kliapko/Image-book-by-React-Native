@@ -1,21 +1,18 @@
 import Svg, { Path, Rect } from "react-native-svg";
+import { globalStyles } from "../../utils/globalStyles";
 
-const GridIcon = (props) => {
+const GridIcon = ({ focused }) => {
+  const color = focused ? "#FFFFFF" : "#212121";
+  const bgcBtn = focused ? "#FF6C00" : "#F6F6F6";
+
   return (
-    <Svg
-      width={24}
-      height={24}
-      fill="none"
-      viewBox="0 0 24 24"
-      xmlns="http://www.w3.org/2000/svg"
-      {...props}
-    >
-      <Rect width={24} height={24} fill="white" />
+    <Svg style={globalStyles.menuBtn} fill="none">
+      <Rect width="70" height="40" rx="20" fill={bgcBtn} />
       <Path
         fillRule="evenodd"
         clipRule="evenodd"
-        d="M3 3H10V10H3V3Z"
-        stroke="#212121"
+        d="M26 11H33V18H26V11Z"
+        stroke={color}
         strokeOpacity="0.8"
         strokeLinecap="round"
         strokeLinejoin="round"
@@ -23,8 +20,8 @@ const GridIcon = (props) => {
       <Path
         fillRule="evenodd"
         clipRule="evenodd"
-        d="M14 3H21V10H14V3Z"
-        stroke="#212121"
+        d="M37 11H44V18H37V11Z"
+        stroke={color}
         strokeOpacity="0.8"
         strokeLinecap="round"
         strokeLinejoin="round"
@@ -32,8 +29,8 @@ const GridIcon = (props) => {
       <Path
         fillRule="evenodd"
         clipRule="evenodd"
-        d="M14 14H21V21H14V14Z"
-        stroke="#212121"
+        d="M37 22H44V29H37V22Z"
+        stroke={color}
         strokeOpacity="0.8"
         strokeLinecap="round"
         strokeLinejoin="round"
@@ -41,8 +38,8 @@ const GridIcon = (props) => {
       <Path
         fillRule="evenodd"
         clipRule="evenodd"
-        d="M3 14H10V21H3V14Z"
-        stroke="#212121"
+        d="M26 22H33V29H26V22Z"
+        stroke={color}
         strokeOpacity="0.8"
         strokeLinecap="round"
         strokeLinejoin="round"

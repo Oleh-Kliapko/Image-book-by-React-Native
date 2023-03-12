@@ -1,20 +1,26 @@
-import Svg, { Path } from "react-native-svg";
+import Svg, { Path, G, Rect, Defs, ClipPath } from "react-native-svg";
+import { globalStyles } from "../../utils/globalStyles";
 
-const PlusIcon = (props) => {
+const PlusIcon = ({ focused }) => {
+  const color = focused ? "#FFFFFF" : "#212121";
+  const bgcBtn = focused ? "#FF6C00" : "#F6F6F6";
+
   return (
-    <Svg
-      width={14}
-      height={14}
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      {...props}
-    >
-      <Path
-        fillRule="evenodd"
-        clipRule="evenodd"
-        d="M7.5 0.5H6.5V6.5H0.5V7.5H6.5V13.5H7.5V7.5H13.5V6.5H7.5V0.5Z"
-        fill="white"
-      />
+    <Svg style={globalStyles.menuBtn} fill="none">
+      <G clipPath="url(#clip0_12_109)">
+        <Rect width="70" height="40" rx="20" fill={bgcBtn} />
+        <Path
+          fillRule="evenodd"
+          clipRule="evenodd"
+          d="M35.5 13.5H34.5V19.5H28.5V20.5H34.5V26.5H35.5V20.5H41.5V19.5H35.5V13.5Z"
+          fill={color}
+        />
+      </G>
+      <Defs>
+        <ClipPath id="clip0_12_109">
+          <Rect width="70" height="40" fill={bgcBtn} />
+        </ClipPath>
+      </Defs>
     </Svg>
   );
 };
