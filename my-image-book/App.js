@@ -11,7 +11,7 @@ export default function App() {
   return (
     <NavigationContainer>
       <AuthStack.Navigator
-        initialRouteName="login"
+        initialRouteName="registration"
         screenOptions={{ headerShown: false }}
       >
         <AuthStack.Screen name="registration" component={RegistrationScreen} />

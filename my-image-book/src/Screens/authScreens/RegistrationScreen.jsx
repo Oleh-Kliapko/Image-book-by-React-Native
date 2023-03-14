@@ -70,7 +70,7 @@ const RegistrationScreen = () => {
       errorFormToast();
       return;
     }
-    navigation.navigate("home");
+    navigation.navigate("home", { userName, email }); //Local for training - delete after end of project
     successRegistrationToast();
     setIsKeyboard(false);
     setUserData(initialUserData);

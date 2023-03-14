@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import {
   View,
@@ -6,6 +6,8 @@ import {
   TouchableOpacity,
   TextInput,
   ImageBackground,
+  TouchableWithoutFeedback,
+  Keyboard,
 } from "react-native";
 import Toast from "react-native-toast-message";
 
@@ -69,93 +71,97 @@ const LoginScreen = () => {
       errorFormToast();
       return;
     }
-    navigation.navigate("home");
+    navigation.navigate("home", { email }); //Local for training - delete after end of project
     successLoginToast();
     setIsKeyboard(false);
     setUserData(initialUserData);
   };
 
   return (
-    <KeyboardWrapper>
-      <ImageBackground
-        style={imgBg}
-        source={require("../../images/bgImage.jpg")}
-      >
-        <View
-          style={{
-            ...form,
-            paddingBottom: isKeyboard ? 32 : 78,
-          }}
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <KeyboardWrapper>
+        <ImageBackground
+          style={imgBg}
+          source={require("../../images/bgImage.jpg")}
         >
-          <Text style={title}>Log In</Text>
-          <View style={formInput}>
-            <TextInput
-              style={{
-                ...input,
-                borderColor: isFocus.email ? "#FF6C00" : "#E8E8E8",
-              }}
-              keyboardType="email-address"
-              placeholder="Email"
-              placeholderTextColor="#BDBDBD"
-              value={userData.email}
-              onFocus={() => handleFocus("email")}
-              onEndEditing={() => handleEndFocus("email")}
-              onChangeText={(value) =>
-                setUserData((prevState) => ({
-                  ...prevState,
-                  email: value.trim(),
-                }))
-              }
-            />
-            <View style={passwordInput}>
+          <View
+            style={{
+              ...form,
+              paddingBottom: isKeyboard ? 32 : 78,
+            }}
+          >
+            <Text style={title}>Log In</Text>
+            <View style={formInput}>
               <TextInput
                 style={{
                   ...input,
-                  borderColor: isFocus.password ? "#FF6C00" : "#E8E8E8",
+                  borderColor: isFocus.email ? "#FF6C00" : "#E8E8E8",
                 }}
-                secureTextEntry={!isShowPassword}
-                keyboardType="default"
-                placeholder="Password"
+                keyboardType="email-address"
+                placeholder="Email"
                 placeholderTextColor="#BDBDBD"
-                value={userData.password}
-                onFocus={() => handleFocus("password")}
-                onEndEditing={() => handleEndFocus("password")}
+                value={userData.email}
+                onFocus={() => handleFocus("email")}
+                onEndEditing={() => handleEndFocus("email")}
                 onChangeText={(value) =>
                   setUserData((prevState) => ({
                     ...prevState,
-                    password: value.trim(),
+                    email: value.trim(),
                   }))
                 }
               />
-              <TouchableOpacity
-                style={showPasswordBtn}
-                activeOpacity={0.5}
-                onPress={() => setIsShowPassword((prev) => !prev)}
-              >
-                {isShowPassword ? <EyeOnIcon /> : <EyeOffIcon />}
-              </TouchableOpacity>
+              <View style={passwordInput}>
+                <TextInput
+                  style={{
+                    ...input,
+                    borderColor: isFocus.password ? "#FF6C00" : "#E8E8E8",
+                  }}
+                  secureTextEntry={!isShowPassword}
+                  keyboardType="default"
+                  placeholder="Password"
+                  placeholderTextColor="#BDBDBD"
+                  value={userData.password}
+                  onFocus={() => handleFocus("password")}
+                  onEndEditing={() => handleEndFocus("password")}
+                  onChangeText={(value) =>
+                    setUserData((prevState) => ({
+                      ...prevState,
+                      password: value.trim(),
+                    }))
+                  }
+                />
+                <TouchableOpacity
+                  style={showPasswordBtn}
+                  activeOpacity={0.5}
+                  onPress={() => setIsShowPassword((prev) => !prev)}
+                >
+                  {isShowPassword ? <EyeOnIcon /> : <EyeOffIcon />}
+                </TouchableOpacity>
+              </View>
             </View>
+            {/* {!isKeyboard && ( */}
+            <>
+              <MainButton
+                onSubmitForm={onSubmitForm}
+                title="Log In"
+                isActive={true}
+              />
+              <TouchableOpacity
+                style={isAccount}
+                activeOpacity={0.7}
+                onPress={handleGoToRegistration}
+              >
+                <Text style={isAccountText}>
+                  Don't have an account? Register
+                </Text>
+              </TouchableOpacity>
+            </>
+            {/* )} */}
           </View>
-          {/* {!isKeyboard && ( */}
-          <>
-            <MainButton
-              onSubmitForm={onSubmitForm}
-              title="Log In"
-              isActive={true}
-            />
-            <TouchableOpacity
-              style={isAccount}
-              activeOpacity={0.7}
-              onPress={handleGoToRegistration}
-            >
-              <Text style={isAccountText}>Don't have an account? Register</Text>
-            </TouchableOpacity>
-          </>
-          {/* )} */}
-        </View>
-      </ImageBackground>
-      <Toast position="top" topOffset={60} config={toastConfig} />
-    </KeyboardWrapper>
+        </ImageBackground>
+        <Toast position="top" topOffset={60} config={toastConfig} />
+      </KeyboardWrapper>
+    </TouchableWithoutFeedback>
   );
 };
 

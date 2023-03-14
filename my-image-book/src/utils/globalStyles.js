@@ -8,7 +8,7 @@ export const globalStyles = StyleSheet.create({
   },
   avatarBox: {
     marginTop: -60,
-    width: 132,
+    width: 120,
     height: 120,
     backgroundColor: "#F6F6F6",
     borderRadius: 16,

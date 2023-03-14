@@ -41,20 +41,20 @@ const KeyboardWrapper = ({ children }) => {
   }
 
   return (
-    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-      <SafeAreaView
-        style={{ ...globalStyles.container, width: dimensions }}
-        onLayout={onLayoutRootView}
+    // <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+    <SafeAreaView
+      style={{ ...globalStyles.container, width: dimensions }}
+      onLayout={onLayoutRootView}
+    >
+      <KeyboardAvoidingView
+        style={{ flex: 1 }}
+        behavior={Platform.OS == "ios" ? "padding" : "height"}
       >
-        <KeyboardAvoidingView
-          style={{ flex: 1 }}
-          behavior={Platform.OS == "ios" ? "padding" : "height"}
-        >
-          {children}
-        </KeyboardAvoidingView>
-        <StatusBar style="auto" />
-      </SafeAreaView>
-    </TouchableWithoutFeedback>
+        {children}
+      </KeyboardAvoidingView>
+      <StatusBar style="auto" />
+    </SafeAreaView>
+    // </TouchableWithoutFeedback>
   );
 };
 

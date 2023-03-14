@@ -8,9 +8,9 @@ const Avatar = ({ isAvatar = false }) => {
     <View style={globalStyles.avatarBox}>
       <TouchableOpacity>
         {isAvatar ? (
-          <RemoveAvatarIcon style={{ marginTop: 75, marginLeft: 113.5 }} />
+          <RemoveAvatarIcon style={{ marginTop: 75, marginLeft: 101 }} />
         ) : (
-          <AddAvatarIcon style={{ marginTop: 81, marginLeft: 119.5 }} />
+          <AddAvatarIcon style={{ marginTop: 81, marginLeft: 107 }} />
         )}
       </TouchableOpacity>
     </View>
