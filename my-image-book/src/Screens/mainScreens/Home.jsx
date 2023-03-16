@@ -2,26 +2,27 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import PostsScreen from "./PostsScreen";
 import CreatePostsScreen from "./CreatePostsScreen";
 import ProfileScreen from "./ProfileScreen";
-import { globalStyles } from "../../utils/globalStyles";
+import { screenStyles } from "./screenStyles";
 import { UserIcon, GridIcon, PlusIcon } from "../../components/svg";
 
-const MainTab = createBottomTabNavigator();
+export const MainTab = createBottomTabNavigator();
 
 const Home = ({ route }) => {
   const userData = route.params; //Local for training - delete after end of project
+
   return (
     <MainTab.Navigator
       initialRouteName="Posts"
       screenOptions={{
         headerShown: false,
         tabBarLabel: () => null,
-        tabBarStyle: globalStyles.tabMenu,
+        tabBarStyle: screenStyles.tabMenu,
       }}
     >
       <MainTab.Screen
         name="Posts"
         component={PostsScreen}
-        initialParams={{ userData: userData }} //Local for training - delete after end of project
+        initialParams={{ userData }} //Local for training - delete after end of project
         options={{
           tabBarIcon: ({ focused }) => <GridIcon focused={focused} />,
         }}
@@ -31,6 +32,7 @@ const Home = ({ route }) => {
         component={CreatePostsScreen}
         options={{
           tabBarIcon: ({ focused }) => <PlusIcon focused={focused} />,
+          tabBarStyle: { display: "none" },
         }}
       />
       <MainTab.Screen

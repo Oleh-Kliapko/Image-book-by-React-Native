@@ -1,10 +1,17 @@
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
-import { View, Text, Image, TouchableOpacity, ScrollView } from "react-native";
+import {
+  SafeAreaView,
+  View,
+  Text,
+  TouchableOpacity,
+  ScrollView,
+  Image,
+} from "react-native";
 
-import KeyboardWrapper from "../../components/KeyboardWrapper/KeyboardWrapper";
 import { screenStyles } from "./screenStyles";
-import { LogOutIcon, MapPinIcon, MessageOffIcon } from "../../components/svg";
+import { LogOutIcon } from "../../components/svg";
+import PostItem from "../../components/PostItem/PostItem";
 import { photos } from "../../utils/imgTraining"; //Local photos for training - delete after end of project
 
 const {
@@ -16,9 +23,6 @@ const {
   avatarName,
   avatarEmail,
   imgWrapper,
-  imgTitle,
-  numberCommentsStyle,
-  locationStyle,
 } = screenStyles;
 
 const PostsScreen = ({ route }) => {
@@ -32,7 +36,7 @@ const PostsScreen = ({ route }) => {
   };
 
   return (
-    <KeyboardWrapper>
+    <SafeAreaView style={{ marginBottom: 160 }}>
       <View style={header}>
         <Text style={headerTitle}>Publications</Text>
         <TouchableOpacity
@@ -45,7 +49,10 @@ const PostsScreen = ({ route }) => {
       </View>
       <View style={mainScreenWrapper}>
         <View style={{ flexDirection: "row", alignItems: "center" }}>
-          <View style={avatar}></View>
+          <Image
+            style={avatar}
+            source={require("../../images/User.jpg")} //Local photo for training - delete after end of project
+          ></Image>
           <View>
             <Text style={avatarName}>{userName}</Text>
             <Text style={avatarEmail}>{email}</Text>
@@ -55,26 +62,15 @@ const PostsScreen = ({ route }) => {
       <ScrollView>
         <View style={imgWrapper}>
           {photos.map((photo) => {
-            const { id, picture, title, numberComments, location } = photo;
             return (
-              <View style={{ gap: 8 }} key={id}>
-                <Image
-                  style={{ width: 343, height: 240 }}
-                  source={picture}
-                ></Image>
-                <Text style={imgTitle}>{title}</Text>
-                <View style={{ flexDirection: "row", alignItems: "center" }}>
-                  <MessageOffIcon />
-                  <Text style={numberCommentsStyle}>{numberComments}</Text>
-                  <MapPinIcon />
-                  <Text style={locationStyle}>{location}</Text>
-                </View>
+              <View style={{ gap: 8 }} key={photo.id}>
+                <PostItem photo={photo} />
               </View>
             );
           })}
         </View>
       </ScrollView>
-    </KeyboardWrapper>
+    </SafeAreaView>
   );
 };
 

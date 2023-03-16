@@ -16,6 +16,10 @@ export const screenStyles = StyleSheet.create({
     position: "absolute",
     right: 16,
   },
+  goBackBtn: {
+    position: "absolute",
+    left: 16,
+  },
   headerTitle: {
     fontFamily: fonts.robotoMedium,
     fontSize: 17,
@@ -27,10 +31,14 @@ export const screenStyles = StyleSheet.create({
     paddingHorizontal: 16,
     gap: 32,
   },
+  tabMenu: {
+    height: 83,
+    paddingTop: 9,
+    boxShadow: "0px -0.5px 0px rgba(0, 0, 0, 0.3)",
+  },
   avatar: {
     width: 60,
     height: 60,
-    backgroundColor: "#F6F6F6",
     borderRadius: 16,
     marginRight: 8,
   },
@@ -58,20 +66,34 @@ export const screenStyles = StyleSheet.create({
     lineHeight: 19,
     color: "#212121",
   },
-  numberCommentsStyle: {
-    fontFamily: fonts.robotoRegular,
-    fontSize: 16,
-    lineHeight: 19,
-    color: "#BDBDBD",
-    marginLeft: 6,
-    marginRight: 40,
+  cameraBox: {
+    height: 240,
+    width: "100%",
+    backgroundColor: "#F6F6F6",
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: "#E8E8E8",
+    alignItems: "center",
+    justifyContent: "center",
+    marginBottom: 8,
   },
-  locationStyle: {
+  camera: {
+    width: 60,
+    height: 60,
+    backgroundColor: "#FFF",
+    borderRadius: "50%",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  createPhotoText: {
     fontFamily: fonts.robotoRegular,
     fontSize: 16,
     lineHeight: 19,
     color: "#212121",
-    textDecorationLine: "underline",
-    marginLeft: 6,
+  },
+  inputStyle: {
+    height: 50,
+    borderBottomWidth: 1,
+    borderBottomColor: "#BDBDBD",
   },
 });

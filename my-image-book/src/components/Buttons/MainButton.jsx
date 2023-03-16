@@ -1,9 +1,9 @@
 import PropTypes from "prop-types";
 import { Text, TouchableOpacity } from "react-native";
-import { globalStyles } from "../../utils/globalStyles";
+import { btnStyles } from "./btnStyles";
 
 export const MainButton = ({ onSubmitForm, title, isActive = false }) => {
-  const { mainBtn, mainBtnTitle } = globalStyles;
+  const { mainBtn, mainBtnTitle } = btnStyles;
 
   return (
     <TouchableOpacity
@@ -12,6 +12,7 @@ export const MainButton = ({ onSubmitForm, title, isActive = false }) => {
         backgroundColor: isActive ? "#FF6C00" : "#F6F6F6",
       }}
       activeOpacity={0.7}
+      disabled={isActive ? false : true}
       onPress={onSubmitForm}
     >
       <Text

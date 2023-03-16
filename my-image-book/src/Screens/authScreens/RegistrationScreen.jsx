@@ -31,11 +31,13 @@ const {
   isAccount,
   isAccountText,
 } = authStyles;
+
 const initialUserData = {
   userName: "",
   email: "",
   password: "",
 };
+
 const initialFocus = {
   userName: false,
   email: false,
