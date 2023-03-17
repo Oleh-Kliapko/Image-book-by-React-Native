@@ -10,14 +10,13 @@ import {
 import Toast from "react-native-toast-message";
 
 import { authStyles } from "./authSlyles";
+import { globalStyles } from "../../utils/globalStyles";
 import KeyboardWrapper from "../../components/KeyboardWrapper/KeyboardWrapper";
 import MainButton from "../../components/Buttons/MainButton";
 import { EyeOffIcon, EyeOnIcon } from "../../components/svg";
 import { toastConfig, errorFormToast } from "../../utils/toasts";
 
 const {
-  imgBg,
-  form,
   title,
   formInput,
   input,
@@ -73,16 +72,16 @@ const LoginScreen = () => {
   return (
     <KeyboardWrapper>
       <ImageBackground
-        style={imgBg}
+        style={globalStyles.imgBg}
         source={require("../../images/bgImage.jpg")}
       >
         <View
           style={{
-            ...form,
+            ...globalStyles.mainWrapper,
             paddingBottom: isKeyboard ? 32 : 78,
           }}
         >
-          <Text style={title}>Log In</Text>
+          <Text style={globalStyles.title}>Log In</Text>
           <View style={formInput}>
             <TextInput
               style={{
@@ -131,7 +130,7 @@ const LoginScreen = () => {
               </TouchableOpacity>
             </View>
           </View>
-          {/* {!isKeyboard && ( */}
+          {!isKeyboard && (
           <>
             <MainButton
               onSubmitForm={onSubmitForm}
@@ -146,7 +145,7 @@ const LoginScreen = () => {
               <Text style={isAccountText}>Don't have an account? Register</Text>
             </TouchableOpacity>
           </>
-          {/* )} */}
+          )}
         </View>
       </ImageBackground>
       <Toast position="top" topOffset={60} config={toastConfig} />

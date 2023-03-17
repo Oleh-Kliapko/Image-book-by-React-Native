@@ -3,7 +3,7 @@ import { fonts } from "../../utils/fonts";
 
 export const screenStyles = StyleSheet.create({
   header: {
-    height: 60,
+    height: 80,
     flexDirection: "row",
     width: "100%",
     borderBottomWidth: 0.5,
@@ -58,7 +58,6 @@ export const screenStyles = StyleSheet.create({
   imgWrapper: {
     gap: 32,
     paddingBottom: 32,
-    marginLeft: 16,
   },
   imgTitle: {
     fontFamily: fonts.robotoMedium,
@@ -81,7 +80,7 @@ export const screenStyles = StyleSheet.create({
     width: 60,
     height: 60,
     backgroundColor: "#FFF",
-    borderRadius: "50%",
+    borderRadius: 30,
     alignItems: "center",
     justifyContent: "center",
   },

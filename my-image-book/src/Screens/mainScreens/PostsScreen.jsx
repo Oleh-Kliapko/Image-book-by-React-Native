@@ -40,9 +40,9 @@ const PostsScreen = ({ route }) => {
   };
 
   return (
-    <SafeAreaView style={{ marginBottom: 160 }}>
+    <SafeAreaView style={{ marginBottom: 200 }}>
       <View style={header}>
-        <Text style={headerTitle}>Publications</Text>
+        <Text style={headerTitle}>Posts</Text>
         <TouchableOpacity
           style={logoutBtn}
           activeOpacity={0.7}
@@ -64,7 +64,7 @@ const PostsScreen = ({ route }) => {
         </View>
       </View>
       <ScrollView>
-        <View style={imgWrapper}>
+        <View style={{ ...imgWrapper, paddingLeft: 16 }}>
           {photos.map((photo) => {
             return (
               <View style={{ gap: 8 }} key={photo.id}>

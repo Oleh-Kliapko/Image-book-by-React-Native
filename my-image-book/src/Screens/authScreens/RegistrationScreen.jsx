@@ -10,6 +10,7 @@ import {
 import Toast from "react-native-toast-message";
 
 import { authStyles } from "./authSlyles";
+import { globalStyles } from "../../utils/globalStyles";
 import KeyboardWrapper from "../../components/KeyboardWrapper/KeyboardWrapper";
 import Avatar from "../../components/Avatar/Avatar";
 import MainButton from "../../components/Buttons/MainButton";
@@ -17,8 +18,6 @@ import { EyeOffIcon, EyeOnIcon } from "../../components/svg";
 import { toastConfig, errorFormToast } from "../../utils/toasts";
 
 const {
-  imgBg,
-  form,
   title,
   formInput,
   input,
@@ -76,17 +75,17 @@ const RegistrationScreen = () => {
   return (
     <KeyboardWrapper>
       <ImageBackground
-        style={imgBg}
+        style={globalStyles.imgBg}
         source={require("../../images/bgImage.jpg")}
       >
         <View
           style={{
-            ...form,
+            ...globalStyles.mainWrapper,
             paddingBottom: isKeyboard ? 32 : 78,
           }}
         >
           <Avatar />
-          <Text style={title}>Registration</Text>
+          <Text style={globalStyles.title}>Registration</Text>
           <View style={formInput}>
             <TextInput
               style={{
@@ -153,22 +152,24 @@ const RegistrationScreen = () => {
               </TouchableOpacity>
             </View>
           </View>
-          {/* {!isKeyboard && ( */}
-          <>
-            <MainButton
-              onSubmitForm={onSubmitForm}
-              title="Register"
-              isActive={true}
-            />
-            <TouchableOpacity
-              style={isAccount}
-              activeOpacity={0.7}
-              onPress={handleGoToLogin}
-            >
-              <Text style={isAccountText}>Already have an account? Log in</Text>
-            </TouchableOpacity>
-          </>
-          {/* )} */}
+          {!isKeyboard && (
+            <>
+              <MainButton
+                onSubmitForm={onSubmitForm}
+                title="Register"
+                isActive={true}
+              />
+              <TouchableOpacity
+                style={isAccount}
+                activeOpacity={0.7}
+                onPress={handleGoToLogin}
+              >
+                <Text style={isAccountText}>
+                  Already have an account? Log in
+                </Text>
+              </TouchableOpacity>
+            </>
+          )}
         </View>
       </ImageBackground>
       <Toast position="top" topOffset={60} config={toastConfig} />

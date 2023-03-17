@@ -1,9 +1,9 @@
 import Svg, { Path, G, Rect, Defs, ClipPath } from "react-native-svg";
 import { globalStyles } from "../../utils/globalStyles";
 
-const TrashIcon = ({ focused }) => {
-  const color = focused ? "#FFFFFF" : "#BDBDBD";
-  const bgcBtn = focused ? "#FF6C00" : "#F6F6F6";
+const TrashIcon = ({ isActive }) => {
+  const color = isActive ? "#FFFFFF" : "#BDBDBD";
+  const bgcBtn = isActive ? "#BDBDBD" : "#F6F6F6";
 
   return (
     <Svg style={globalStyles.menuBtn} fill="none">

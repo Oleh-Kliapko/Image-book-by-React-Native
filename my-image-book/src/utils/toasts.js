@@ -18,6 +18,13 @@ export const errorFormToast = () =>
     text2: "All fields must not be empty",
   });
 
+// export const successCreatePost = () =>
+//   Toast.show({
+//     type: "success",
+//     text1: "Post was added in collection",
+//     text2: "Watch the comments and reviews",
+//   });
+
 export const toastConfig = {
   success: (props) => (
     <BaseToast
