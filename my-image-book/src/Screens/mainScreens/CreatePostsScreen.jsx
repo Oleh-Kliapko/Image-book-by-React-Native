@@ -1,10 +1,14 @@
-import React, { useState, useEffect } from "react";
-
+import { useState, useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { View, Text, TextInput, TouchableOpacity } from "react-native";
 
 import { screenStyles } from "./screenStyles";
-import { ArrowLeftIcon, CameraIcon, MapPinIcon } from "../../components/svg";
+import {
+  ArrowLeftIcon,
+  CameraIcon,
+  MapPinIcon,
+  TrashIcon,
+} from "../../components/svg";
 import KeyboardWrapper from "../../components/KeyboardWrapper/KeyboardWrapper";
 import MainButton from "../../components/Buttons/MainButton";
 
@@ -23,9 +27,16 @@ const initialValue = { title: "", location: "" };
 const CreatePostsScreen = () => {
   const [value, setValue] = useState(initialValue);
   const [isActiveBtn, setIsActiveBtn] = useState(false);
+  const [isKeyboard, setIsKeyboard] = useState(false);
   const navigation = useNavigation();
 
   const { title, location } = value;
+
+  useEffect(() => {
+    if (title && location) {
+      setIsActiveBtn(true);
+    } else setIsActiveBtn(false);
+  }, [title, location]);
 
   const handleGoBack = () => {
     navigation.goBack();
@@ -35,11 +46,9 @@ const CreatePostsScreen = () => {
     setValue((prev) => ({ ...prev, [name]: value }));
   };
 
-  useEffect(() => {
-    if (title && location) {
-      setIsActiveBtn(true);
-    } else setIsActiveBtn(false);
-  }, [title, location]);
+  const clearInputs = () => {
+    setValue({ title: "", location: "" });
+  };
 
   return (
     <KeyboardWrapper>
@@ -69,33 +78,39 @@ const CreatePostsScreen = () => {
             placeholder="Name..."
             placeholderTextColor="#BDBDBD"
             value={value.title}
+            onFocus={() => setIsKeyboard(true)}
+            onEndEditing={() => setIsKeyboard(false)}
             onChangeText={(value) => handleChangeInput("title", value)}
           />
-          <TouchableOpacity
-            style={{
-              ...inputStyle,
-              flexDirection: "row",
-              alignItems: "center",
-            }}
-            activeOpacity={0.7}
-          >
-            <MapPinIcon />
-            <TextInput
-              style={{ ...createPhotoText, paddingLeft: 4 }}
-              keyboardType="default"
-              placeholder="Locality...                                                                                 "
-              placeholderTextColor="#BDBDBD"
-              value={value.location}
-              onChangeText={(value) => handleChangeInput("location", value)}
-            />
-          </TouchableOpacity>
+          <TextInput
+            style={{ ...createPhotoText, ...inputStyle, paddingLeft: 28 }}
+            keyboardType="default"
+            placeholder="Place..."
+            placeholderTextColor="#BDBDBD"
+            value={value.location}
+            onFocus={() => setIsKeyboard(true)}
+            onEndEditing={() => setIsKeyboard(false)}
+            onChangeText={(value) => handleChangeInput("location", value)}
+          ></TextInput>
+          <MapPinIcon style={{ position: "absolute", bottom: 29 }} />
         </View>
-        <MainButton
-          title="Publish"
-          // onSubmitForm={{}}
-          isActive={isActiveBtn}
-        />
+        {!isKeyboard && (
+          <>
+            <MainButton
+              title="Publish"
+              // onSubmitForm={{}}
+              isActive={isActiveBtn}
+            />
+          </>
+        )}
       </View>
+      <TouchableOpacity
+        style={{ position: "absolute", bottom: 0, alignSelf: "center" }}
+        onPress={clearInputs}
+        disabled={!isActiveBtn}
+      >
+        <TrashIcon />
+      </TouchableOpacity>
     </KeyboardWrapper>
   );
 };

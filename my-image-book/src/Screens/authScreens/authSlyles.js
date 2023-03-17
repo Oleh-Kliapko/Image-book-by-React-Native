@@ -9,11 +9,11 @@ export const authStyles = StyleSheet.create({
     justifyContent: "flex-end",
   },
   form: {
-    alignItems: "center",
     width: "100%",
     backgroundColor: "#fff",
     borderTopRightRadius: 25,
     borderTopLeftRadius: 25,
+    paddingHorizontal: 16,
   },
   title: {
     fontFamily: fonts.robotoMedium,
@@ -21,6 +21,7 @@ export const authStyles = StyleSheet.create({
     paddingVertical: 32,
     letterSpacing: 0.2,
     lineHeight: 35,
+    alignSelf: "center",
   },
   formInput: {
     gap: 16,
@@ -28,7 +29,7 @@ export const authStyles = StyleSheet.create({
   input: {
     fontFamily: fonts.robotoRegular,
     fontSize: 16,
-    width: 343,
+    width: "100%",
     height: 50,
     backgroundColor: "#F6F6F6",
     color: "#000",
@@ -51,5 +52,6 @@ export const authStyles = StyleSheet.create({
     fontFamily: fonts.robotoRegular,
     fontSize: 16,
     color: "#1B4371",
+    alignSelf: "center",
   },
 });

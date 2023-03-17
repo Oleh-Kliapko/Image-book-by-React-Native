@@ -1,4 +1,4 @@
-import React from "react";
+import { useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
 import {
   SafeAreaView,
@@ -8,10 +8,12 @@ import {
   ScrollView,
   Image,
 } from "react-native";
+import Toast from "react-native-toast-message";
 
 import { screenStyles } from "./screenStyles";
 import { LogOutIcon } from "../../components/svg";
 import PostItem from "../../components/PostItem/PostItem";
+import { toastConfig, successLoginToast } from "../../utils/toasts";
 import { photos } from "../../utils/imgTraining"; //Local photos for training - delete after end of project
 
 const {
@@ -30,6 +32,8 @@ const PostsScreen = ({ route }) => {
     userData: { userName, email },
   } = route.params;
   const navigation = useNavigation();
+
+  useEffect(() => successLoginToast(), []);
 
   const handleLogout = () => {
     navigation.navigate("login");
@@ -70,6 +74,7 @@ const PostsScreen = ({ route }) => {
           })}
         </View>
       </ScrollView>
+      <Toast position="top" topOffset={60} config={toastConfig} />
     </SafeAreaView>
   );
 };

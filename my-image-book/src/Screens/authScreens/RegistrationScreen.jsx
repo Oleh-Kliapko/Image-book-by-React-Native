@@ -14,11 +14,7 @@ import KeyboardWrapper from "../../components/KeyboardWrapper/KeyboardWrapper";
 import Avatar from "../../components/Avatar/Avatar";
 import MainButton from "../../components/Buttons/MainButton";
 import { EyeOffIcon, EyeOnIcon } from "../../components/svg";
-import {
-  toastConfig,
-  successRegistrationToast,
-  errorFormToast,
-} from "../../utils/toasts";
+import { toastConfig, errorFormToast } from "../../utils/toasts";
 
 const {
   imgBg,
@@ -73,7 +69,6 @@ const RegistrationScreen = () => {
       return;
     }
     navigation.navigate("home", { userName, email }); //Local for training - delete after end of project
-    successRegistrationToast();
     setIsKeyboard(false);
     setUserData(initialUserData);
   };

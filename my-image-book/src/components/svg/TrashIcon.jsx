@@ -7,7 +7,7 @@ const TrashIcon = ({ focused }) => {
 
   return (
     <Svg style={globalStyles.menuBtn} fill="none">
-      <G clip-path="url(#clip0_38_39)">
+      <G clipPath="url(#clip0_38_39)">
         <Rect width="70" height="40" rx="20" fill={bgcBtn} />
         <Path
           d="M26 14H28H44"

@@ -4,13 +4,6 @@ import Toast, {
   InfoToast,
 } from "react-native-toast-message";
 
-export const successRegistrationToast = () =>
-  Toast.show({
-    type: "success",
-    text1: "You have registered",
-    text2: "Enjoy creating your own ImageBook",
-  });
-
 export const successLoginToast = () =>
   Toast.show({
     type: "success",

@@ -11,6 +11,7 @@ export const globalStyles = StyleSheet.create({
     height: 120,
     backgroundColor: "#F6F6F6",
     borderRadius: 16,
+    alignSelf: "center",
   },
   menuBtn: {
     width: 70,

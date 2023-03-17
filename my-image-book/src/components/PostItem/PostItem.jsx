@@ -1,4 +1,4 @@
-import React from "react";
+import PropTypes from "prop-types";
 import { View, Text, Image, TouchableOpacity } from "react-native";
 
 import { postItemStyles } from "./postItemStyles";
@@ -27,6 +27,10 @@ const PostItem = ({ photo }) => {
       </View>
     </>
   );
+};
+
+PostItem.propTypes = {
+  photo: PropTypes.object.isRequired,
 };
 
 export default PostItem;

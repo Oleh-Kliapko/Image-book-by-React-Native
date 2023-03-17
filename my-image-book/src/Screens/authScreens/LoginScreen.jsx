@@ -13,11 +13,7 @@ import { authStyles } from "./authSlyles";
 import KeyboardWrapper from "../../components/KeyboardWrapper/KeyboardWrapper";
 import MainButton from "../../components/Buttons/MainButton";
 import { EyeOffIcon, EyeOnIcon } from "../../components/svg";
-import {
-  toastConfig,
-  successLoginToast,
-  errorFormToast,
-} from "../../utils/toasts";
+import { toastConfig, errorFormToast } from "../../utils/toasts";
 
 const {
   imgBg,
@@ -70,7 +66,6 @@ const LoginScreen = () => {
       return;
     }
     navigation.navigate("home", { email }); //Local for training - delete after end of project
-    successLoginToast();
     setIsKeyboard(false);
     setUserData(initialUserData);
   };
