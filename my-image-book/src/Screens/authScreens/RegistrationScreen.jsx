@@ -18,7 +18,6 @@ import { EyeOffIcon, EyeOnIcon } from "../../components/svg";
 import { toastConfig, errorFormToast } from "../../utils/toasts";
 
 const {
-  title,
   formInput,
   input,
   showPasswordBtn,
@@ -44,6 +43,7 @@ const RegistrationScreen = () => {
   const [isShowPassword, setIsShowPassword] = useState(false);
   const [isKeyboard, setIsKeyboard] = useState(false);
   const [isFocus, setIsFocus] = useState(initialFocus);
+  const [avatarUri, setAvatarUri] = useState(null); // get avatarUri from Redux or null
   const navigation = useNavigation();
 
   const handleGoToLogin = () => {
@@ -84,7 +84,7 @@ const RegistrationScreen = () => {
             paddingBottom: isKeyboard ? 32 : 78,
           }}
         >
-          <Avatar />
+          <Avatar /> {/* add prop for Avatar for change icon */}
           <Text style={globalStyles.title}>Registration</Text>
           <View style={formInput}>
             <TextInput

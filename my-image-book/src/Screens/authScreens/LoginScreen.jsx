@@ -17,7 +17,6 @@ import { EyeOffIcon, EyeOnIcon } from "../../components/svg";
 import { toastConfig, errorFormToast } from "../../utils/toasts";
 
 const {
-  title,
   formInput,
   input,
   showPasswordBtn,
@@ -131,20 +130,22 @@ const LoginScreen = () => {
             </View>
           </View>
           {!isKeyboard && (
-          <>
-            <MainButton
-              onSubmitForm={onSubmitForm}
-              title="Log In"
-              isActive={true}
-            />
-            <TouchableOpacity
-              style={isAccount}
-              activeOpacity={0.7}
-              onPress={handleGoToRegistration}
-            >
-              <Text style={isAccountText}>Don't have an account? Register</Text>
-            </TouchableOpacity>
-          </>
+            <>
+              <MainButton
+                onSubmitForm={onSubmitForm}
+                title="Log In"
+                isActive={true}
+              />
+              <TouchableOpacity
+                style={isAccount}
+                activeOpacity={0.7}
+                onPress={handleGoToRegistration}
+              >
+                <Text style={isAccountText}>
+                  Don't have an account? Register
+                </Text>
+              </TouchableOpacity>
+            </>
           )}
         </View>
       </ImageBackground>
