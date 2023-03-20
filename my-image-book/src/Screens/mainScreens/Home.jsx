@@ -5,10 +5,10 @@ import ProfileScreen from "./ProfileScreen";
 import { screenStyles } from "./screenStyles";
 import { UserIcon, GridIcon, PlusIcon } from "../../components/svg";
 
-export const MainTab = createBottomTabNavigator();
+const MainTab = createBottomTabNavigator();
 
 const Home = ({ route }) => {
-  const { userName, email, photoUri } = route.params; //Local for training - delete after end of project
+  const { userName, email, avatar } = route.params; //Local for training - delete after end of project
 
   return (
     <MainTab.Navigator
@@ -22,7 +22,7 @@ const Home = ({ route }) => {
       <MainTab.Screen
         name="Posts"
         component={PostsScreen}
-        initialParams={{ userName, email, photoUri }} //Local for training - delete after end of project
+        initialParams={{ userName, email, avatar }} //Local for training - delete after end of project
         options={{
           tabBarIcon: ({ focused }) => <GridIcon focused={focused} />,
         }}
@@ -38,7 +38,7 @@ const Home = ({ route }) => {
       <MainTab.Screen
         name="Profile"
         component={ProfileScreen}
-        initialParams={{ userName, email, photoUri }} //Local for training - delete after end of project
+        initialParams={{ userName, email, avatar }} //Local for training - delete after end of project
         options={{
           tabBarIcon: ({ focused }) => <UserIcon focused={focused} />,
         }}

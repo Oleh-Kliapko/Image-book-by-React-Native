@@ -8,12 +8,15 @@ const { imgTitle, numberCommentsStyle, locationStyle, infoWrapper } =
   postItemStyles;
 
 const PostItem = ({ photo }) => {
-  const { picture, title, comments, location } = photo.item;
+  const { picture, title, comments, descriptionLocation } = photo.item;
   const numberComments = comments.length;
 
   return (
     <>
-      <Image style={{ width: 343, height: 240 }} source={picture}></Image>
+      <Image
+        style={{ width: 343, height: 240 }}
+        source={{ uri: picture }}
+      ></Image>
       <Text style={imgTitle}>{title}</Text>
       <View style={infoWrapper}>
         <TouchableOpacity style={infoWrapper}>
@@ -22,7 +25,7 @@ const PostItem = ({ photo }) => {
         </TouchableOpacity>
         <TouchableOpacity style={infoWrapper}>
           <MapPinIcon />
-          <Text style={locationStyle}>{location}</Text>
+          <Text style={locationStyle}>{descriptionLocation}</Text>
         </TouchableOpacity>
       </View>
     </>

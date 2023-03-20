@@ -31,27 +31,30 @@ const {
   inputStyle,
 } = screenStyles;
 
-const initialValue = { id: null, picture: "", title: "", location: "" };
+const initialValue = {
+  id: null,
+  picture: "",
+  title: "",
+  descriptionLocation: "",
+};
 
 const CreatePostsScreen = ({ route }) => {
   const [value, setValue] = useState(initialValue);
   const [isActiveBtn, setIsActiveBtn] = useState(false);
   const [isKeyboard, setIsKeyboard] = useState(false);
-  const [photoUri, setPhotoUri] = useState(null); // get from Redux or null
   const navigation = useNavigation();
 
-  const { id, picture, title, location } = value;
+  const { id, picture, title, descriptionLocation } = value;
 
   useEffect(() => {
-    setPhotoUri(route.params?.photoUri);
     setValue({ ...value, picture: route.params?.photoUri, id: uuidv4() });
   }, [route.params]);
 
   useEffect(() => {
-    if (title && location && picture) {
+    if (title && descriptionLocation && picture) {
       setIsActiveBtn(true);
     } else setIsActiveBtn(false);
-  }, [title, location]);
+  }, [title, descriptionLocation, picture]);
 
   const handleChangeInput = (name, value) => {
     setValue((prev) => ({ ...prev, [name]: value }));
@@ -60,8 +63,8 @@ const CreatePostsScreen = ({ route }) => {
   const onSubmitForm = () => {
     setIsKeyboard(false);
     setValue(initialValue);
-    setPhotoUri(null);
-    navigation.navigate("Posts");
+    navigation.navigate("Profile", { id, picture, title, descriptionLocation }); // Delete after Redux
+    navigation.navigate("Posts", { id, picture, title, descriptionLocation }); // Delete after Redux
   };
 
   return (
@@ -79,7 +82,7 @@ const CreatePostsScreen = ({ route }) => {
       <ScrollView>
         <View style={{ paddingHorizontal: 16, paddingVertical: 32 }}>
           <View>
-            {!photoUri && (
+            {!picture && (
               <>
                 <TouchableOpacity
                   style={cameraBox}
@@ -97,7 +100,7 @@ const CreatePostsScreen = ({ route }) => {
                 <Text style={createPhotoText}> Download photo</Text>
               </>
             )}
-            {photoUri && (
+            {picture && (
               <>
                 <TouchableOpacity
                   style={cameraBox}
@@ -108,7 +111,7 @@ const CreatePostsScreen = ({ route }) => {
                 >
                   <Image
                     style={{ height: 240, width: "100%", borderRadius: 8 }}
-                    source={{ uri: photoUri }}
+                    source={{ uri: picture }}
                   />
                   <View style={camera}>
                     <CameraIcon />
@@ -135,10 +138,12 @@ const CreatePostsScreen = ({ route }) => {
               keyboardType="default"
               placeholder="Place..."
               placeholderTextColor="#BDBDBD"
-              value={value.location}
+              value={value.descriptionLocation}
               onFocus={() => setIsKeyboard(true)}
               onEndEditing={() => setIsKeyboard(false)}
-              onChangeText={(value) => handleChangeInput("location", value)}
+              onChangeText={(value) =>
+                handleChangeInput("descriptionLocation", value)
+              }
             ></TextInput>
             <MapPinIcon style={{ position: "absolute", bottom: 28 }} />
           </View>

@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import { format } from "date-fns";
 import { useState, useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
@@ -57,11 +56,6 @@ const CameraScreen = ({ route }) => {
       default:
         break;
     }
-    // if (fromScreen === "registration") {
-    //   navigation.navigate("registration", { photoUri: photo });
-    // } else {
-    //   navigation.navigate("Profile", { photoUri: photo });
-    // }
   };
 
   return (
@@ -114,10 +108,6 @@ const CameraScreen = ({ route }) => {
       )}
     </View>
   );
-};
-
-CameraScreen.propTypes = {
-  onTakePhoto: PropTypes.func,
 };
 
 export default CameraScreen;

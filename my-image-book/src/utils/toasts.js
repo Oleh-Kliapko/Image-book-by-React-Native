@@ -18,13 +18,6 @@ export const errorFormToast = () =>
     text2: "Avatar and all fields must not be empty",
   });
 
-// export const cameraOpen = () =>
-//   Toast.show({
-//     type: "info",
-//     text1: "Make cool photo!",
-//     text2: "Save your photo after that",
-//   });
-
 export const toastConfig = {
   success: (props) => (
     <BaseToast
