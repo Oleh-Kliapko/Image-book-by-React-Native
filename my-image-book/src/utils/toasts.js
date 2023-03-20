@@ -15,7 +15,7 @@ export const errorFormToast = () =>
   Toast.show({
     type: "error",
     text1: "Error. What a shame!",
-    text2: "All fields must not be empty",
+    text2: "Avatar and all fields must not be empty",
   });
 
 // export const cameraOpen = () =>

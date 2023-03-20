@@ -30,6 +30,7 @@ const initialUserData = {
   userName: "",
   email: "",
   password: "",
+  avatar: null,
 };
 
 const initialFocus = {
@@ -52,6 +53,7 @@ const RegistrationScreen = ({ route }) => {
 
   useEffect(() => {
     setPhotoUri(route.params?.photoUri);
+    setUserData({ ...userData, avatar: route.params?.photoUri });
   }, [route.params]);
 
   const handleGoToLogin = () => {
@@ -69,9 +71,9 @@ const RegistrationScreen = ({ route }) => {
   };
 
   const onSubmitForm = () => {
-    const { userName, email, password } = userData;
+    const { userName, email, password, avatar } = userData;
 
-    if (!userName || !email || !password) {
+    if (!userName || !email || !password || !avatar) {
       errorFormToast();
       return;
     }
