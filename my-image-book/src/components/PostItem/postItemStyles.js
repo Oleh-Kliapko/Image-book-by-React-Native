@@ -10,15 +10,14 @@ export const postItemStyles = StyleSheet.create({
   },
   infoWrapper: {
     flexDirection: "row",
+    justifyContent: "space-between",
     alignItems: "center",
   },
-  numberCommentsStyle: {
+  textStyle: {
     fontFamily: fonts.robotoRegular,
     fontSize: 16,
     lineHeight: 19,
-    color: "#BDBDBD",
     marginLeft: 6,
-    marginRight: 40,
   },
   locationStyle: {
     fontFamily: fonts.robotoRegular,

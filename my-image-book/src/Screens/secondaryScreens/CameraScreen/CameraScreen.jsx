@@ -4,8 +4,11 @@ import { useNavigation } from "@react-navigation/native";
 import { Text, View, TouchableOpacity, Image } from "react-native";
 import { Camera } from "expo-camera";
 import * as MediaLibrary from "expo-media-library";
+import * as Location from "expo-location";
+import Toast from "react-native-toast-message";
 
 import { cameraStyles } from "./cameraStyles";
+import { toastConfig, errorAcceptCamera } from "../../../utils/toasts";
 
 const {
   photoView,
@@ -23,6 +26,7 @@ const CameraScreen = ({ route }) => {
   const [photo, setPhoto] = useState(null);
   const [hasPermission, setHasPermission] = useState(null);
   const [type, setType] = useState(Camera.Constants.Type.back);
+  const [location, setLocation] = useState(null);
   const navigation = useNavigation();
 
   const fromScreen = route.params.fromScreen;
@@ -31,13 +35,18 @@ const CameraScreen = ({ route }) => {
     (async () => {
       const { status } = await Camera.requestCameraPermissionsAsync();
       await MediaLibrary.requestPermissionsAsync();
-      setHasPermission(status === "granted");
+      const locationStatus = await Location.requestForegroundPermissionsAsync();
+      if (status === "granted" && locationStatus.status === "granted") {
+        setHasPermission(true);
+      } else errorAcceptCamera();
     })();
   }, []);
 
   const makePhoto = async () => {
     const { uri } = await cameraRef.takePictureAsync();
     await MediaLibrary.createAssetAsync(uri);
+    const location = await Location.getCurrentPositionAsync();
+    setLocation(location.coords);
     setPhoto(uri);
   };
 
@@ -51,7 +60,10 @@ const CameraScreen = ({ route }) => {
         navigation.navigate("Profile", { photoUri: photo });
         break;
       case "createPost":
-        navigation.navigate("CreatePost", { photoUri: photo });
+        navigation.navigate("CreatePost", {
+          photoUri: photo,
+          location: location,
+        });
         break;
       default:
         break;
@@ -106,6 +118,8 @@ const CameraScreen = ({ route }) => {
       ) : (
         <View></View>
       )}
+
+      <Toast position="top" topOffset={60} config={toastConfig} />
     </View>
   );
 };

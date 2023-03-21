@@ -10,8 +10,16 @@ const ProfileScreen = ({ route }) => {
   const [avatarUri, setAvatarUri] = useState(null); // get from Redux or null
   const [user, setUser] = useState(null); // get from Redux or null
 
-  const { userName, avatar, id, picture, title, descriptionLocation } =
-    route.params;
+  const {
+    userName,
+    avatar,
+    id,
+    picture,
+    title,
+    descriptionLocation,
+    latitude,
+    longitude,
+  } = route.params;
 
   useEffect(() => {
     setAvatarUri(avatar);
@@ -23,7 +31,15 @@ const ProfileScreen = ({ route }) => {
     if (id) {
       setPhotos((prev) => [
         ...prev,
-        { id, picture, title, descriptionLocation, comments: [] },
+        {
+          id,
+          picture,
+          title,
+          descriptionLocation,
+          latitude,
+          longitude,
+          comments: [],
+        },
       ]);
     }
   }, [id]);
@@ -38,7 +54,6 @@ const ProfileScreen = ({ route }) => {
           ...globalStyles.mainWrapper,
           flex: 0.8,
           paddingBottom: 16,
-          alignItems: "center",
         }}
       >
         <Avatar photoUri={avatarUri} fromScreen="profile" />
@@ -49,7 +64,7 @@ const ProfileScreen = ({ route }) => {
           keyExtractor={(photo) => photo.id}
           renderItem={(photo) => (
             <View style={{ marginBottom: 32, gap: 8 }}>
-              <PostItem photo={photo} />
+              <PostItem photo={photo} fromScreen="profile" />
             </View>
           )}
         />

@@ -18,6 +18,13 @@ export const errorFormToast = () =>
     text2: "Avatar and all fields must not be empty",
   });
 
+export const errorAcceptCamera = () =>
+  Toast.show({
+    type: "error",
+    text1: "You have not given permission",
+    text2: "Access location was denied",
+  });
+
 export const toastConfig = {
   success: (props) => (
     <BaseToast

@@ -28,8 +28,17 @@ const {
 const PostsScreen = ({ route }) => {
   const [photos, setPhotos] = useState([]);
   const navigation = useNavigation();
-  const { userName, email, avatar, id, picture, title, descriptionLocation } =
-    route.params;
+  const {
+    userName,
+    email,
+    avatar,
+    id,
+    picture,
+    title,
+    descriptionLocation,
+    latitude,
+    longitude,
+  } = route.params;
 
   useEffect(() => successLoginToast(), []);
 
@@ -38,7 +47,15 @@ const PostsScreen = ({ route }) => {
     if (id) {
       setPhotos((prev) => [
         ...prev,
-        { id, picture, title, descriptionLocation, comments: [] },
+        {
+          id,
+          picture,
+          title,
+          descriptionLocation,
+          latitude,
+          longitude,
+          comments: [],
+        },
       ]);
     }
   }, [id]);
@@ -68,12 +85,12 @@ const PostsScreen = ({ route }) => {
         </View>
       </View>
       <FlatList
-        style={{ paddingLeft: 16 }}
+        style={{ paddingHorizontal: 16 }}
         data={photos}
         keyExtractor={(photo) => photo.id}
         renderItem={(photo) => (
           <View style={{ marginBottom: 32, gap: 8 }}>
-            <PostItem photo={photo} />
+            <PostItem photo={photo} fromScreen="posts" />
           </View>
         )}
       />

@@ -36,6 +36,8 @@ const initialValue = {
   picture: "",
   title: "",
   descriptionLocation: "",
+  latitude: null,
+  longitude: null,
 };
 
 const CreatePostsScreen = ({ route }) => {
@@ -44,10 +46,17 @@ const CreatePostsScreen = ({ route }) => {
   const [isKeyboard, setIsKeyboard] = useState(false);
   const navigation = useNavigation();
 
-  const { id, picture, title, descriptionLocation } = value;
+  const { id, picture, title, descriptionLocation, latitude, longitude } =
+    value;
 
   useEffect(() => {
-    setValue({ ...value, picture: route.params?.photoUri, id: uuidv4() });
+    setValue({
+      ...value,
+      picture: route.params?.photoUri,
+      latitude: route.params?.location.latitude,
+      longitude: route.params?.location.longitude,
+      id: uuidv4(),
+    });
   }, [route.params]);
 
   useEffect(() => {
@@ -63,8 +72,22 @@ const CreatePostsScreen = ({ route }) => {
   const onSubmitForm = () => {
     setIsKeyboard(false);
     setValue(initialValue);
-    navigation.navigate("Profile", { id, picture, title, descriptionLocation }); // Delete after Redux
-    navigation.navigate("Posts", { id, picture, title, descriptionLocation }); // Delete after Redux
+    navigation.navigate("Profile", {
+      id,
+      picture,
+      title,
+      descriptionLocation,
+      latitude,
+      longitude,
+    }); // Delete after Redux
+    navigation.navigate("Posts", {
+      id,
+      picture,
+      title,
+      descriptionLocation,
+      latitude,
+      longitude,
+    }); // Delete after Redux
   };
 
   return (
