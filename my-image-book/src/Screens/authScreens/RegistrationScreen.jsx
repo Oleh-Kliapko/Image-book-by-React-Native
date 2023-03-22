@@ -13,7 +13,7 @@ import { authStyles } from "./authSlyles";
 import { globalStyles } from "../../utils/globalStyles";
 import KeyboardWrapper from "../../components/KeyboardWrapper/KeyboardWrapper";
 import Avatar from "../../components/Avatar/Avatar";
-import MainButton from "../../components/Buttons/MainButton";
+import { MainButton } from "../../components/Buttons";
 import { EyeOffIcon, EyeOnIcon } from "../../components/svg";
 import { toastConfig, errorFormToast } from "../../utils/toasts";
 

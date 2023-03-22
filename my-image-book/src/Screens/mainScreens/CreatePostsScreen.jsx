@@ -14,7 +14,7 @@ import "react-native-get-random-values";
 import { screenStyles } from "./screenStyles";
 import { CameraIcon, MapPinIcon, TrashIcon } from "../../components/svg";
 import KeyboardWrapper from "../../components/KeyboardWrapper/KeyboardWrapper";
-import MainButton from "../../components/Buttons/MainButton";
+import { MainButton } from "../../components/Buttons";
 import Header from "../../components/Header/Header";
 
 const { cameraBox, cameraIcon, textStyle, inputStyle } = screenStyles;

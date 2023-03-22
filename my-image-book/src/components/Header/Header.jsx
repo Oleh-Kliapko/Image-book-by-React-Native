@@ -2,9 +2,10 @@ import { useNavigation } from "@react-navigation/native";
 import { View, Text, TouchableOpacity } from "react-native";
 
 import { headerStyles } from "./headerStyles";
-import { ArrowLeftIcon, LogOutIcon } from "../svg";
+import { ArrowLeftIcon } from "../svg";
+import { LogoutBtn } from "../Buttons";
 
-const { header, goBackBtn, logoutBtn, headerTitle } = headerStyles;
+const { header, goBackBtn, headerTitle } = headerStyles;
 
 const Header = ({ title }) => {
   const navigation = useNavigation();
@@ -20,15 +21,7 @@ const Header = ({ title }) => {
           <ArrowLeftIcon />
         </TouchableOpacity>
       )}
-      {title === "Posts" && (
-        <TouchableOpacity
-          style={logoutBtn}
-          activeOpacity={0.7}
-          onPress={() => navigation.navigate("login")}
-        >
-          <LogOutIcon />
-        </TouchableOpacity>
-      )}
+      {title === "Posts" && <LogoutBtn from="header" />}
       <Text style={headerTitle}>{title}</Text>
     </View>
   );

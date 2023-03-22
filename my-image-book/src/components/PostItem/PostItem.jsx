@@ -33,7 +33,7 @@ const PostItem = ({ photo, fromScreen }) => {
   return (
     <>
       <Image
-        style={{ width: "100%", height: 240 }}
+        style={{ width: "100%", height: 240, borderRadius: 8 }}
         source={{ uri: picture }}
       ></Image>
       <Text style={imgTitle}>{title}</Text>
@@ -76,6 +76,7 @@ const PostItem = ({ photo, fromScreen }) => {
 
 PostItem.propTypes = {
   photo: PropTypes.object.isRequired,
+  fromScreen: PropTypes.string,
 };
 
 export default PostItem;

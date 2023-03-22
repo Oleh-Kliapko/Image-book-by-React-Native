@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import { Text, TouchableOpacity } from "react-native";
 import { btnStyles } from "./btnStyles";
 
-export const MainButton = ({ onSubmitForm, title, isActive = false }) => {
+const MainButton = ({ onSubmitForm, title, isActive = false }) => {
   const { mainBtn, mainBtnTitle } = btnStyles;
 
   return (
@@ -27,10 +27,10 @@ export const MainButton = ({ onSubmitForm, title, isActive = false }) => {
   );
 };
 
+export default MainButton;
+
 MainButton.propTypes = {
   onSubmitForm: PropTypes.func,
   title: PropTypes.string.isRequired,
   isActive: PropTypes.bool,
 };
-
-export default MainButton;

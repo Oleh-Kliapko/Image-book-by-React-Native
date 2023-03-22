@@ -31,11 +31,7 @@ export const cameraStyles = StyleSheet.create({
   },
   othersBtn: {
     position: "absolute",
-    bottom: 30,
-  },
-  othersBtnText: {
-    fontSize: 20,
-    color: "#FFF",
+    bottom: 26,
   },
   previewPhotoWrapper: {
     position: "absolute",

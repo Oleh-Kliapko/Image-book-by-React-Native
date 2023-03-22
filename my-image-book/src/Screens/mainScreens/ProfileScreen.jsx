@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
 import { ImageBackground, View, Text, FlatList } from "react-native";
 
+import { globalStyles } from "../../utils/globalStyles";
 import Avatar from "../../components/Avatar/Avatar";
 import PostItem from "../../components/PostItem/PostItem";
-import { globalStyles } from "../../utils/globalStyles";
+import { LogoutBtn } from "../../components/Buttons";
 
 const ProfileScreen = ({ route }) => {
   const [photos, setPhotos] = useState([]);
@@ -57,6 +58,7 @@ const ProfileScreen = ({ route }) => {
         }}
       >
         <Avatar photoUri={avatarUri} fromScreen="profile" />
+        <LogoutBtn />
         <Text style={globalStyles.title}>{user}</Text>
         <FlatList
           style={{ gap: 16 }}

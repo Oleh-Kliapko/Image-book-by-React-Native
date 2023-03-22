@@ -9,6 +9,8 @@ import Toast from "react-native-toast-message";
 
 import { cameraStyles } from "./cameraStyles";
 import { toastConfig, errorAcceptCamera } from "../../../utils/toasts";
+import { SavePhotoIcon, FlipIcon } from "../../../components/svg";
+import { Loading } from "../../../utils/loading";
 
 const {
   photoView,
@@ -16,7 +18,6 @@ const {
   cameraBtnOut,
   cameraBtnInner,
   othersBtn,
-  othersBtnText,
   previewPhotoWrapper,
   previewPhoto,
 } = cameraStyles;
@@ -27,6 +28,7 @@ const CameraScreen = ({ route }) => {
   const [hasPermission, setHasPermission] = useState(null);
   const [type, setType] = useState(Camera.Constants.Type.back);
   const [location, setLocation] = useState(null);
+  const [loading, setLoading] = useState(false);
   const navigation = useNavigation();
 
   const fromScreen = route.params.fromScreen;
@@ -43,9 +45,11 @@ const CameraScreen = ({ route }) => {
   }, []);
 
   const makePhoto = async () => {
+    setLoading(true);
     const { uri } = await cameraRef.takePictureAsync();
     await MediaLibrary.createAssetAsync(uri);
     const location = await Location.getCurrentPositionAsync();
+    setLoading(false);
     setLocation(location.coords);
     setPhoto(uri);
   };
@@ -71,56 +75,61 @@ const CameraScreen = ({ route }) => {
   };
 
   return (
-    <View style={{ flex: 1 }}>
-      {hasPermission ? (
-        <Camera
-          style={{ flex: 1 }}
-          ref={(ref) => {
-            setCameraRef(ref);
-          }}
-        >
-          {photo && (
-            <View style={previewPhotoWrapper}>
-              <Image source={{ uri: photo }} style={previewPhoto} />
-              <Text style={{ color: "#FFF", fontSize: 16 }}>
-                {format(Date.now(), "	PPpp")}
-              </Text>
-            </View>
-          )}
-          <View style={photoView}>
-            <TouchableOpacity
-              style={{ ...othersBtn, left: 50 }}
-              onPress={() => {
-                setType(
-                  type === Camera.Constants.Type.back
-                    ? Camera.Constants.Type.front
-                    : Camera.Constants.Type.back
-                );
-              }}
-            >
-              <Text style={othersBtnText}>Flip</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={cameraBtnWrapper} onPress={makePhoto}>
-              <View style={cameraBtnOut}>
-                <View style={cameraBtnInner}></View>
-              </View>
-            </TouchableOpacity>
-            {photo && (
-              <TouchableOpacity
-                style={{ ...othersBtn, right: 30 }}
-                onPress={savePhoto}
-              >
-                <Text style={othersBtnText}>Save photo</Text>
-              </TouchableOpacity>
-            )}
-          </View>
-        </Camera>
-      ) : (
-        <View></View>
+    <>
+      {loading && (
+        <Loading loading={loading} title="Just second. Making photo..." />
       )}
+      <View style={{ flex: 1 }}>
+        {hasPermission ? (
+          <Camera
+            style={{ flex: 1 }}
+            ref={(ref) => {
+              setCameraRef(ref);
+            }}
+          >
+            {photo && (
+              <View style={previewPhotoWrapper}>
+                <Image source={{ uri: photo }} style={previewPhoto} />
+                <Text style={{ color: "#FFF", fontSize: 16 }}>
+                  {format(Date.now(), "	PPpp")}
+                </Text>
+              </View>
+            )}
+            <View style={photoView}>
+              <TouchableOpacity
+                style={{ ...othersBtn, left: 60 }}
+                onPress={() => {
+                  setType(
+                    type === Camera.Constants.Type.back
+                      ? Camera.Constants.Type.front
+                      : Camera.Constants.Type.back
+                  );
+                }}
+              >
+                <FlipIcon />
+              </TouchableOpacity>
+              <TouchableOpacity style={cameraBtnWrapper} onPress={makePhoto}>
+                <View style={cameraBtnOut}>
+                  <View style={cameraBtnInner}></View>
+                </View>
+              </TouchableOpacity>
+              {photo && (
+                <TouchableOpacity
+                  style={{ ...othersBtn, right: 60 }}
+                  onPress={savePhoto}
+                >
+                  <SavePhotoIcon />
+                </TouchableOpacity>
+              )}
+            </View>
+          </Camera>
+        ) : (
+          <View></View>
+        )}
 
-      <Toast position="top" topOffset={60} config={toastConfig} />
-    </View>
+        <Toast position="top" topOffset={60} config={toastConfig} />
+      </View>
+    </>
   );
 };
 
