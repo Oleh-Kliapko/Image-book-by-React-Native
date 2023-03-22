@@ -26,6 +26,10 @@ const PostItem = ({ photo, fromScreen }) => {
     navigation.navigate("map", { latitude, longitude, fromScreen });
   };
 
+  const handleCommentsScreen = () => {
+    navigation.navigate("comments", { picture });
+  };
+
   return (
     <>
       <Image
@@ -34,7 +38,7 @@ const PostItem = ({ photo, fromScreen }) => {
       ></Image>
       <Text style={imgTitle}>{title}</Text>
       <View style={infoWrapper}>
-        <TouchableOpacity style={infoWrapper}>
+        <TouchableOpacity style={infoWrapper} onPress={handleCommentsScreen}>
           {numberComments ? <MessageOnIcon /> : <MessageOffIcon />}
           <Text
             style={{

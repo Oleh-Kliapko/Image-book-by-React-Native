@@ -12,24 +12,12 @@ import { v4 as uuidv4 } from "uuid";
 import "react-native-get-random-values";
 
 import { screenStyles } from "./screenStyles";
-import {
-  ArrowLeftIcon,
-  CameraIcon,
-  MapPinIcon,
-  TrashIcon,
-} from "../../components/svg";
+import { CameraIcon, MapPinIcon, TrashIcon } from "../../components/svg";
 import KeyboardWrapper from "../../components/KeyboardWrapper/KeyboardWrapper";
 import MainButton from "../../components/Buttons/MainButton";
+import Header from "../../components/Header/Header";
 
-const {
-  header,
-  headerTitle,
-  goBackBtn,
-  cameraBox,
-  camera,
-  createPhotoText,
-  inputStyle,
-} = screenStyles;
+const { cameraBox, cameraIcon, textStyle, inputStyle } = screenStyles;
 
 const initialValue = {
   id: null,
@@ -92,16 +80,7 @@ const CreatePostsScreen = ({ route }) => {
 
   return (
     <KeyboardWrapper>
-      <View style={header}>
-        <TouchableOpacity
-          style={goBackBtn}
-          activeOpacity={0.7}
-          onPress={() => navigation.navigate("Posts")}
-        >
-          <ArrowLeftIcon />
-        </TouchableOpacity>
-        <Text style={headerTitle}>Create post</Text>
-      </View>
+      <Header title="Create post" />
       <ScrollView>
         <View style={{ paddingHorizontal: 16, paddingVertical: 32 }}>
           <View>
@@ -116,11 +95,11 @@ const CreatePostsScreen = ({ route }) => {
                     });
                   }}
                 >
-                  <View style={camera}>
+                  <View style={cameraIcon}>
                     <CameraIcon />
                   </View>
                 </TouchableOpacity>
-                <Text style={createPhotoText}> Download photo</Text>
+                <Text style={textStyle}> Download photo</Text>
               </>
             )}
             {picture && (
@@ -136,18 +115,18 @@ const CreatePostsScreen = ({ route }) => {
                     style={{ height: 240, width: "100%", borderRadius: 8 }}
                     source={{ uri: picture }}
                   />
-                  <View style={camera}>
+                  <View style={cameraIcon}>
                     <CameraIcon />
                   </View>
                 </TouchableOpacity>
-                <Text style={createPhotoText}> Edit photo</Text>
+                <Text style={textStyle}> Edit photo</Text>
               </>
             )}
           </View>
 
           <View style={{ paddingTop: 32, gap: 16 }}>
             <TextInput
-              style={{ ...createPhotoText, ...inputStyle }}
+              style={{ ...textStyle, ...inputStyle }}
               keyboardType="default"
               placeholder="Name..."
               placeholderTextColor="#BDBDBD"
@@ -157,7 +136,7 @@ const CreatePostsScreen = ({ route }) => {
               onChangeText={(value) => handleChangeInput("title", value)}
             />
             <TextInput
-              style={{ ...createPhotoText, ...inputStyle, paddingLeft: 28 }}
+              style={{ ...textStyle, ...inputStyle, paddingLeft: 28 }}
               keyboardType="default"
               placeholder="Place..."
               placeholderTextColor="#BDBDBD"
