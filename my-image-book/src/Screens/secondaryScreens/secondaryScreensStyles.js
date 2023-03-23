@@ -27,4 +27,26 @@ export const secondaryScreensStyles = StyleSheet.create({
     fontSize: 20,
     color: "#FFF",
   },
+  commentIcon: {
+    width: "100%",
+    height: 240,
+    borderRadius: 8,
+  },
+  commentWrapper: {
+    flex: 1,
+    paddingHorizontal: 16,
+    marginTop: 32,
+  },
+  inputStyle: {
+    fontFamily: fonts.interMedium,
+    fontSize: 16,
+    width: "100%",
+    height: 50,
+    backgroundColor: "#F6F6F6",
+    borderRadius: 100,
+    borderWidth: 1,
+    borderColor: "#E8E8E8",
+    paddingLeft: 16,
+    paddingRight: 50,
+  },
 });

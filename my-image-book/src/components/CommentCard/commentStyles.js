@@ -9,12 +9,11 @@ export const commentStyles = StyleSheet.create({
     position: "absolute",
   },
   commentWrapper: {
-    padding: 8,
+    padding: 16,
     gap: 8,
     backgroundColor: "rgba(0, 0, 0, 0.03)",
     borderBottomLeftRadius: 8,
     borderBottomRightRadius: 8,
-    borderTopRightRadius: 8,
   },
   commentText: {
     fontFamily: fonts.robotoRegular,

@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { useNavigation } from "@react-navigation/native";
 import { SafeAreaView, View, Text, Image, FlatList } from "react-native";
 import Toast from "react-native-toast-message";
 
@@ -12,7 +11,6 @@ const { mainScreenWrapper, avatarImg, avatarName, avatarEmail } = screenStyles;
 
 const PostsScreen = ({ route }) => {
   const [photos, setPhotos] = useState([]);
-  const navigation = useNavigation();
   const {
     userName,
     email,

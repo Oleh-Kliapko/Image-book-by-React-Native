@@ -56,7 +56,7 @@ const LoginScreen = () => {
     setIsFocus((prevState) => ({ ...prevState, [inputName]: false }));
   };
 
-  const onSubmitForm = async () => {
+  const onSubmitForm = () => {
     const { email, password } = userData;
 
     if (!email || !password) {
