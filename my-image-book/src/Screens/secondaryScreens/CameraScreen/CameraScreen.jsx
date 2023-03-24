@@ -90,7 +90,7 @@ const CameraScreen = ({ route }) => {
             {photo && (
               <View style={previewPhotoWrapper}>
                 <Image source={{ uri: photo }} style={previewPhoto} />
-                <Text style={{ color: "#FFF", fontSize: 16 }}>
+                <Text style={{ color: "#FFFFFF", fontSize: 16 }}>
                   {format(Date.now(), "	PPpp")}
                 </Text>
               </View>

@@ -43,7 +43,8 @@ const CreatePostsScreen = ({ route }) => {
       picture: route.params?.photoUri,
       latitude: route.params?.location.latitude,
       longitude: route.params?.location.longitude,
-      id: uuidv4(),
+      id: Math.random(),
+      // id: uuidv4(),
     });
   }, [route.params]);
 

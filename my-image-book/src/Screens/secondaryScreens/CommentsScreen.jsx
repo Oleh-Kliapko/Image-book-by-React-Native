@@ -36,7 +36,12 @@ const CommentsScreen = ({ route }) => {
     }
     setComments((prev) => [
       ...prev,
-      { id: uuidv4(), textComment: text.trim(), dateComment: Date.now() },
+      {
+        // id: uuidv4(),
+        id: Math.random(),
+        textComment: text.trim(),
+        dateComment: Date.now(),
+      },
     ]);
     setChangeText("");
     Keyboard.dismiss();
