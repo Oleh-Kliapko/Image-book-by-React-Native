@@ -11,6 +11,13 @@ export const successLoginToast = () =>
     text2: "Manage your ImageBook collection",
   });
 
+export const errorRegistration = () =>
+  Toast.show({
+    type: "error",
+    text1: "You didn't register!",
+    text2: "This email is already registered",
+  });
+
 export const errorFormToast = () =>
   Toast.show({
     type: "error",

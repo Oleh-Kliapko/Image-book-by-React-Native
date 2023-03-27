@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
+import { useDispatch, useSelector } from "react-redux";
 import {
   View,
   Text,
@@ -15,7 +16,13 @@ import KeyboardWrapper from "../../components/KeyboardWrapper/KeyboardWrapper";
 import Avatar from "../../components/Avatar/Avatar";
 import { MainButton } from "../../components/Buttons";
 import { EyeOffIcon, EyeOnIcon } from "../../components/svg";
-import { toastConfig, errorFormToast } from "../../utils/toasts";
+import {
+  toastConfig,
+  errorFormToast,
+  errorRegistration,
+} from "../../utils/toasts";
+import { authRegistration } from "../../redux/auth/authOperations";
+import { selectIsUserIsFirebase } from "../../redux/auth/authSelectors";
 
 const {
   formInput,
@@ -31,6 +38,7 @@ const initialUserData = {
   email: "",
   password: "",
   avatar: null,
+  isUserIsFirebase: false,
 };
 
 const initialFocus = {
@@ -44,7 +52,12 @@ const RegistrationScreen = ({ route }) => {
   const [isShowPassword, setIsShowPassword] = useState(false);
   const [isKeyboard, setIsKeyboard] = useState(false);
   const [isFocus, setIsFocus] = useState(initialFocus);
+  const [isUserIsFirebase, setIsUserIsFirebase] = useState(
+    useSelector(selectIsUserIsFirebase)
+  );
+
   const navigation = useNavigation();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     setUserData({ ...userData, avatar: route.params?.photoUri });
@@ -64,19 +77,29 @@ const RegistrationScreen = ({ route }) => {
     setIsFocus((prevState) => ({ ...prevState, [inputName]: false }));
   };
 
-  const onSubmitForm = () => {
+  const onSubmitForm = async () => {
     const { userName, email, password, avatar } = userData;
 
-    if (!userName || !email || !password || !avatar) {
+    if (
+      !userName ||
+      !email ||
+      !password
+      // || !avatar
+    ) {
       errorFormToast();
       return;
     }
-    navigation.navigate("home", { userName, email, avatar }); //Local for training - delete after end of project
     setIsKeyboard(false);
     setUserData(initialUserData);
-  };
 
-  // add prop for Avatar for change icon
+    dispatch(authRegistration(userData));
+
+    if (isUserIsFirebase) {
+      errorRegistration();
+      setIsUserIsFirebase(false);
+      return;
+    } else navigation.navigate("home", { userName, email, avatar }); //Local for training - delete after end of project
+  };
 
   return (
     <KeyboardWrapper>
@@ -92,10 +115,11 @@ const RegistrationScreen = ({ route }) => {
         >
           <Avatar photoUri={userData.avatar} fromScreen="registration" />
           <Text style={globalStyles.title}>Registration</Text>
-          <View style={formInput}>
+          <View>
             <TextInput
               style={{
                 ...input,
+                marginBottom: 16,
                 borderColor: isFocus.userName ? "#FF6C00" : "#E8E8E8",
               }}
               keyboardType="default"
@@ -114,6 +138,7 @@ const RegistrationScreen = ({ route }) => {
             <TextInput
               style={{
                 ...input,
+                marginBottom: 16,
                 borderColor: isFocus.email ? "#FF6C00" : "#E8E8E8",
               }}
               keyboardType="email-address"

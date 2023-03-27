@@ -8,7 +8,6 @@ import {
   Keyboard,
 } from "react-native";
 import Toast from "react-native-toast-message";
-import { v4 as uuidv4 } from "uuid";
 
 import { secondaryScreensStyles } from "./secondaryScreensStyles";
 import KeyboardWrapper from "../../components/KeyboardWrapper/KeyboardWrapper";
@@ -37,8 +36,7 @@ const CommentsScreen = ({ route }) => {
     setComments((prev) => [
       ...prev,
       {
-        // id: uuidv4(),
-        id: Math.random(),
+        id: Date.now(),
         textComment: text.trim(),
         dateComment: Date.now(),
       },

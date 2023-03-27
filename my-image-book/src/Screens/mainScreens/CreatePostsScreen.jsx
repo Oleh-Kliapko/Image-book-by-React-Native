@@ -8,7 +8,6 @@ import {
   ScrollView,
   Image,
 } from "react-native";
-import { v4 as uuidv4 } from "uuid";
 import "react-native-get-random-values";
 
 import { screenStyles } from "./screenStyles";
@@ -43,8 +42,7 @@ const CreatePostsScreen = ({ route }) => {
       picture: route.params?.photoUri,
       latitude: route.params?.location.latitude,
       longitude: route.params?.location.longitude,
-      id: Math.random(),
-      // id: uuidv4(),
+      id: Date.now(),
     });
   }, [route.params]);
 
@@ -91,9 +89,7 @@ const CreatePostsScreen = ({ route }) => {
                   style={cameraBox}
                   activeOpacity={0.7}
                   onPress={() => {
-                    navigation.navigate("camera", {
-                      fromScreen: "createPost",
-                    });
+                    navigation.navigate("camera", { fromScreen: "createPost" });
                   }}
                 >
                   <View style={cameraIcon}>
@@ -125,9 +121,9 @@ const CreatePostsScreen = ({ route }) => {
             )}
           </View>
 
-          <View style={{ paddingTop: 32, gap: 16 }}>
+          <View style={{ paddingTop: 32 }}>
             <TextInput
-              style={{ ...textStyle, ...inputStyle }}
+              style={{ ...textStyle, ...inputStyle, marginBottom: 16 }}
               keyboardType="default"
               placeholder="Name..."
               placeholderTextColor="#BDBDBD"
@@ -136,19 +132,21 @@ const CreatePostsScreen = ({ route }) => {
               onEndEditing={() => setIsKeyboard(false)}
               onChangeText={(value) => handleChangeInput("title", value)}
             />
-            <TextInput
-              style={{ ...textStyle, ...inputStyle, paddingLeft: 28 }}
-              keyboardType="default"
-              placeholder="Place..."
-              placeholderTextColor="#BDBDBD"
-              value={value.descriptionLocation}
-              onFocus={() => setIsKeyboard(true)}
-              onEndEditing={() => setIsKeyboard(false)}
-              onChangeText={(value) =>
-                handleChangeInput("descriptionLocation", value)
-              }
-            ></TextInput>
-            <MapPinIcon style={{ position: "absolute", bottom: 28 }} />
+            <View style={{ justifyContent: "center" }}>
+              <TextInput
+                style={{ ...textStyle, ...inputStyle, paddingLeft: 28 }}
+                keyboardType="default"
+                placeholder="Place..."
+                placeholderTextColor="#BDBDBD"
+                value={value.descriptionLocation}
+                onFocus={() => setIsKeyboard(true)}
+                onEndEditing={() => setIsKeyboard(false)}
+                onChangeText={(value) =>
+                  handleChangeInput("descriptionLocation", value)
+                }
+              />
+              <MapPinIcon style={{ position: "absolute" }} />
+            </View>
           </View>
           {!isKeyboard && (
             <>

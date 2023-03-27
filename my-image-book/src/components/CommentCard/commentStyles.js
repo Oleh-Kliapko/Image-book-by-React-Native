@@ -10,7 +10,6 @@ export const commentStyles = StyleSheet.create({
   },
   commentWrapper: {
     padding: 16,
-    gap: 8,
     backgroundColor: "rgba(0, 0, 0, 0.03)",
     borderBottomLeftRadius: 8,
     borderBottomRightRadius: 8,
@@ -26,5 +25,6 @@ export const commentStyles = StyleSheet.create({
     fontSize: 10,
     lineHeight: 12,
     color: "#BDBDBD",
+    marginTop: 8,
   },
 });

@@ -23,7 +23,7 @@ const PostsScreen = ({ route }) => {
     longitude,
   } = route.params;
 
-  useEffect(() => successLoginToast(), []);
+  // useEffect(() => successLoginToast(), []);
 
   // Delete after Redux
   useEffect(() => {
@@ -63,7 +63,7 @@ const PostsScreen = ({ route }) => {
         data={photos}
         keyExtractor={(photo) => photo.id}
         renderItem={(photo) => (
-          <View style={{ marginBottom: 32, gap: 8 }}>
+          <View style={{ marginBottom: 32 }}>
             <PostItem photo={photo} fromScreen="posts" />
           </View>
         )}

@@ -2,9 +2,6 @@ import { StyleSheet } from "react-native";
 import { fonts } from "../../utils/fonts";
 
 export const authStyles = StyleSheet.create({
-  formInput: {
-    gap: 16,
-  },
   input: {
     fontFamily: fonts.robotoRegular,
     fontSize: 16,

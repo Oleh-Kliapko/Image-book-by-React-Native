@@ -81,10 +81,11 @@ const LoginScreen = () => {
           }}
         >
           <Text style={globalStyles.title}>Log In</Text>
-          <View style={formInput}>
+          <View>
             <TextInput
               style={{
                 ...input,
+                marginBottom: 16,
                 borderColor: isFocus.email ? "#FF6C00" : "#E8E8E8",
               }}
               keyboardType="email-address"
