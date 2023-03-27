@@ -5,7 +5,6 @@ const initialState = {
   userName: null,
   email: null,
   avatar: null,
-  isUserIsFirebase: false,
 };
 
 export const authSlice = createSlice({
@@ -18,7 +17,6 @@ export const authSlice = createSlice({
       userName: payload.userName,
       email: payload.email,
       avatar: payload.avatar,
-      isUserIsFirebase: payload.isUserIsFirebase,
     }),
   },
 });

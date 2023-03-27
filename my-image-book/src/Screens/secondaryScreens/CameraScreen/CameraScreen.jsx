@@ -8,7 +8,7 @@ import * as Location from "expo-location";
 import Toast from "react-native-toast-message";
 
 import { cameraStyles } from "./cameraStyles";
-import { toastConfig, errorAcceptCamera } from "../../../utils/toasts";
+import { toastConfig, errorAcceptCameraToast } from "../../../utils/toasts";
 import { SavePhotoIcon, FlipIcon } from "../../../components/svg";
 import { Loading } from "../../../utils/loading";
 
@@ -40,7 +40,7 @@ const CameraScreen = ({ route }) => {
       const locationStatus = await Location.requestForegroundPermissionsAsync();
       if (status === "granted" && locationStatus.status === "granted") {
         setHasPermission(true);
-      } else errorAcceptCamera();
+      } else errorAcceptCameraToast();
     })();
   }, []);
 

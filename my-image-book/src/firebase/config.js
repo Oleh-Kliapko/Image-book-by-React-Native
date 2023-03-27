@@ -1,6 +1,5 @@
 import { initializeApp } from "firebase/app";
 import { initializeAuth } from "firebase/auth/react-native";
-import "firebase/auth";
 import { getStorage } from "firebase/storage";
 import { getFirestore } from "firebase/firestore";
 

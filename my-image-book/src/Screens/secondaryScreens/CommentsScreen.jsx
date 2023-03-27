@@ -14,7 +14,7 @@ import KeyboardWrapper from "../../components/KeyboardWrapper/KeyboardWrapper";
 import Header from "../../components/Header/Header";
 import CommentCard from "../../components/CommentCard/CommentCard";
 import { SendIcon } from "../../components/svg";
-import { toastConfig, errorComments } from "../../utils/toasts";
+import { toastConfig, errorCommentsToast } from "../../utils/toasts";
 
 const { commentWrapper, commentIcon, inputStyle } = secondaryScreensStyles;
 
@@ -30,7 +30,7 @@ const CommentsScreen = ({ route }) => {
 
   const handleComment = () => {
     if (!text || text.length < 10 || text.length > 200) {
-      errorComments();
+      errorCommentsToast();
       return;
     }
     setComments((prev) => [

@@ -20,20 +20,10 @@ export const authRegistration =
           userName: userRegistered.displayName,
           email: userRegistered.email,
           avatar: userRegistered.photoURL,
-          isUserIsFirebase: false,
         })
       );
     } catch (error) {
-      console.log(error.message);
-      dispatch(
-        authSlice.actions.updateUserProfile({
-          userId: null,
-          userName: null,
-          email: null,
-          avatar: null,
-          isUserIsFirebase: true,
-        })
-      );
+      return error.message;
     }
   };
 export const authLogin = () => async (dispatch, selectState) => {};

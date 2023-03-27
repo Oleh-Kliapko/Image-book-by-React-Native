@@ -23,7 +23,7 @@ const PostsScreen = ({ route }) => {
     longitude,
   } = route.params;
 
-  // useEffect(() => successLoginToast(), []);
+  useEffect(() => successLoginToast(), []);
 
   // Delete after Redux
   useEffect(() => {

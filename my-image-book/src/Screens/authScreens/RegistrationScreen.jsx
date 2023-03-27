@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import {
   View,
   Text,
@@ -19,10 +19,9 @@ import { EyeOffIcon, EyeOnIcon } from "../../components/svg";
 import {
   toastConfig,
   errorFormToast,
-  errorRegistration,
+  errorRegistrationToast,
 } from "../../utils/toasts";
 import { authRegistration } from "../../redux/auth/authOperations";
-import { selectIsUserIsFirebase } from "../../redux/auth/authSelectors";
 
 const {
   formInput,
@@ -38,7 +37,6 @@ const initialUserData = {
   email: "",
   password: "",
   avatar: null,
-  isUserIsFirebase: false,
 };
 
 const initialFocus = {
@@ -52,9 +50,6 @@ const RegistrationScreen = ({ route }) => {
   const [isShowPassword, setIsShowPassword] = useState(false);
   const [isKeyboard, setIsKeyboard] = useState(false);
   const [isFocus, setIsFocus] = useState(initialFocus);
-  const [isUserIsFirebase, setIsUserIsFirebase] = useState(
-    useSelector(selectIsUserIsFirebase)
-  );
 
   const navigation = useNavigation();
   const dispatch = useDispatch();
@@ -80,25 +75,21 @@ const RegistrationScreen = ({ route }) => {
   const onSubmitForm = async () => {
     const { userName, email, password, avatar } = userData;
 
-    if (
-      !userName ||
-      !email ||
-      !password
-      // || !avatar
-    ) {
+    if (!userName || !email || !password || !avatar) {
       errorFormToast();
       return;
     }
+
     setIsKeyboard(false);
     setUserData(initialUserData);
 
-    dispatch(authRegistration(userData));
-
-    if (isUserIsFirebase) {
-      errorRegistration();
-      setIsUserIsFirebase(false);
-      return;
-    } else navigation.navigate("home", { userName, email, avatar }); //Local for training - delete after end of project
+    dispatch(authRegistration(userData)).then((res) => {
+      const isUserExist = res ? true : false;
+      if (isUserExist) {
+        errorRegistrationToast();
+        return;
+      } else navigation.navigate("home", { userName, email, avatar }); //Local for training - delete after end of project
+    });
   };
 
   return (
