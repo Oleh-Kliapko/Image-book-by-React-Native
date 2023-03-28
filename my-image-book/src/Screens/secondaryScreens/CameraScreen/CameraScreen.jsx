@@ -55,7 +55,6 @@ const CameraScreen = ({ route }) => {
   };
 
   const savePhoto = () => {
-    // add save in Redux storage
     switch (fromScreen) {
       case "registration":
         navigation.navigate("registration", { photoUri: photo });

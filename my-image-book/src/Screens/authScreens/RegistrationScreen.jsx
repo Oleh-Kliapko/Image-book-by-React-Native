@@ -21,16 +21,11 @@ import {
   errorFormToast,
   errorRegistrationToast,
 } from "../../utils/toasts";
+import { Loading } from "../../utils/loading";
 import { authRegistration } from "../../redux/auth/authOperations";
 
-const {
-  formInput,
-  input,
-  showPasswordBtn,
-  passwordInput,
-  isAccount,
-  isAccountText,
-} = authStyles;
+const { input, showPasswordBtn, passwordInput, isAccount, isAccountText } =
+  authStyles;
 
 const initialUserData = {
   userName: "",
@@ -72,7 +67,7 @@ const RegistrationScreen = ({ route }) => {
     setIsFocus((prevState) => ({ ...prevState, [inputName]: false }));
   };
 
-  const onSubmitForm = async () => {
+  const onSubmitForm = () => {
     const { userName, email, password, avatar } = userData;
 
     if (!userName || !email || !password || !avatar) {
@@ -84,11 +79,14 @@ const RegistrationScreen = ({ route }) => {
     setUserData(initialUserData);
 
     dispatch(authRegistration(userData)).then((res) => {
-      const isUserExist = res ? true : false;
-      if (isUserExist) {
+      const isUserExistInDB = !!res;
+
+      if (isUserExistInDB) {
         errorRegistrationToast();
         return;
-      } else navigation.navigate("home", { userName, email, avatar }); //Local for training - delete after end of project
+      } else {
+        navigation.navigate("home");
+      }
     });
   };
 
