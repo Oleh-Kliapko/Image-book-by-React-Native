@@ -21,7 +21,6 @@ import {
   errorFormToast,
   errorRegistrationToast,
 } from "../../utils/toasts";
-import { Loading } from "../../utils/loading";
 import { authRegistration } from "../../redux/auth/authOperations";
 
 const { input, showPasswordBtn, passwordInput, isAccount, isAccountText } =
@@ -29,14 +28,14 @@ const { input, showPasswordBtn, passwordInput, isAccount, isAccountText } =
 
 const initialUserData = {
   userName: "",
-  email: "",
+  userEmail: "",
   password: "",
   avatar: null,
 };
 
 const initialFocus = {
   userName: false,
-  email: false,
+  userEmail: false,
   password: false,
 };
 
@@ -68,15 +67,14 @@ const RegistrationScreen = ({ route }) => {
   };
 
   const onSubmitForm = () => {
-    const { userName, email, password, avatar } = userData;
+    const { userName, userEmail, password, avatar } = userData;
 
-    if (!userName || !email || !password || !avatar) {
+    if (!userName || !userEmail || !password || !avatar) {
       errorFormToast();
       return;
     }
 
     setIsKeyboard(false);
-    setUserData(initialUserData);
 
     dispatch(authRegistration(userData)).then((res) => {
       const isUserExistInDB = !!res;
@@ -85,6 +83,7 @@ const RegistrationScreen = ({ route }) => {
         errorRegistrationToast();
         return;
       } else {
+        setUserData(initialUserData);
         navigation.navigate("home");
       }
     });
@@ -128,18 +127,18 @@ const RegistrationScreen = ({ route }) => {
               style={{
                 ...input,
                 marginBottom: 16,
-                borderColor: isFocus.email ? "#FF6C00" : "#E8E8E8",
+                borderColor: isFocus.userEmail ? "#FF6C00" : "#E8E8E8",
               }}
               keyboardType="email-address"
               placeholder="Email"
               placeholderTextColor="#BDBDBD"
-              value={userData.email}
-              onFocus={() => handleFocus("email")}
-              onEndEditing={() => handleEndFocus("email")}
+              value={userData.userEmail}
+              onFocus={() => handleFocus("userEmail")}
+              onEndEditing={() => handleEndFocus("userEmail")}
               onChangeText={(value) =>
                 setUserData((prevState) => ({
                   ...prevState,
-                  email: value.trim(),
+                  userEmail: value.trim(),
                 }))
               }
             />
