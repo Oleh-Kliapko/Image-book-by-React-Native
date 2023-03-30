@@ -3,9 +3,10 @@ import {
   signInWithEmailAndPassword,
   updateProfile,
   signOut,
+  onAuthStateChanged,
 } from "firebase/auth";
 
-import { auth } from "../../firebase/config";
+import { auth, db } from "../../firebase/config";
 import { authSlice } from "./authSlice";
 
 export const authRegistration =
@@ -17,7 +18,7 @@ export const authRegistration =
         displayName: userName,
         photoURL: avatar,
       });
-      // const userRegistered = auth.currentUser;
+
       const { uid, displayName, email, photoURL } = auth.currentUser;
 
       dispatch(
@@ -38,7 +39,11 @@ export const authLogin =
   ({ userEmail, password }) =>
   async (dispatch) => {
     try {
-      const {user} = await signInWithEmailAndPassword(auth, userEmail, password);
+      const { user } = await signInWithEmailAndPassword(
+        auth,
+        userEmail,
+        password
+      );
       const { displayName, email, photoURL, uid } = user;
 
       dispatch(
@@ -47,10 +52,11 @@ export const authLogin =
           userName: displayName,
           userEmail: email,
           avatar: photoURL,
+          isChangeUser: true,
         })
       );
 
-      return {user};
+      return { user };
     } catch (error) {
       return error.message;
     }
@@ -66,7 +72,26 @@ export const authLogout = () => async (dispatch) => {
   }
 };
 
-export const authChangeUser = () => {};
+export const authChangeUser = () => async (dispatch) => {
+  try {
+    await onAuthStateChanged(auth, (user) => {
+      console.log(user);
+      if (user) {
+        dispatch(
+          authSlice.actions.updateUser({
+            userId: user?.uid,
+            userName: user?.displayName,
+            userEmail: user?.email,
+            avatar: user?.photoURL,
+            isChangeUser: true,
+          })
+        );
+      }
+    });
+  } catch (error) {
+    return error.message;
+  }
+};
 
 export const changeAvatar = (avatar) => async (dispatch) => {
   try {
