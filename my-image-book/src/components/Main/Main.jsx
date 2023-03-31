@@ -1,7 +1,7 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { useSelector, useDispatch } from "react-redux";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 
 import RegistrationScreen from "../../Screens/authScreens/RegistrationScreen";
 import LoginScreen from "../../Screens/authScreens/LoginScreen";
@@ -16,8 +16,6 @@ const AuthStack = createStackNavigator();
 
 const Main = () => {
   const { isChangeUser } = useSelector(selectUser);
-  const [isCurrentUser, setIsCurrentUser] = useState(false);
-
   const dispatch = useDispatch();
 
   useEffect(() => {

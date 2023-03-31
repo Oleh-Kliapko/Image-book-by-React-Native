@@ -21,9 +21,9 @@ export const authSlice = createSlice({
       avatar: payload.avatar,
     }),
     logoutUser: () => initialState,
-    changeUser: (state, { payload }) => ({
-      ...state,
-      isChangeUser: payload,
-    }),
+    // changeUser: (state, { payload }) => ({
+    //   ...state,
+    //   isChangeUser: payload,
+    // }),
   },
 });

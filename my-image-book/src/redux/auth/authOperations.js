@@ -3,8 +3,8 @@ import {
   signInWithEmailAndPassword,
   updateProfile,
   signOut,
-  onAuthStateChanged,
 } from "firebase/auth";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import { auth, db } from "../../firebase/config";
 import { authSlice } from "./authSlice";
@@ -20,6 +20,9 @@ export const authRegistration =
       });
 
       const { uid, displayName, email, photoURL } = auth.currentUser;
+
+      await AsyncStorage.setItem("auth_email", email);
+      await AsyncStorage.setItem("auth_password", password);
 
       dispatch(
         authSlice.actions.updateUser({
@@ -44,7 +47,11 @@ export const authLogin =
         userEmail,
         password
       );
+
       const { displayName, email, photoURL, uid } = user;
+
+      await AsyncStorage.setItem("auth_email", user.email);
+      await AsyncStorage.setItem("auth_password", password);
 
       dispatch(
         authSlice.actions.updateUser({
@@ -66,6 +73,8 @@ export const authLogout = () => async (dispatch) => {
   try {
     await signOut(auth);
     dispatch(authSlice.actions.logoutUser());
+    await AsyncStorage.removeItem("auth_email");
+    await AsyncStorage.removeItem("auth_password");
     // dispatch(postsSlice.actions.reset());
   } catch (error) {
     return error.message;
@@ -74,20 +83,19 @@ export const authLogout = () => async (dispatch) => {
 
 export const authChangeUser = () => async (dispatch) => {
   try {
-    await onAuthStateChanged(auth, (user) => {
-      console.log(user);
-      if (user) {
-        dispatch(
-          authSlice.actions.updateUser({
-            userId: user?.uid,
-            userName: user?.displayName,
-            userEmail: user?.email,
-            avatar: user?.photoURL,
-            isChangeUser: true,
-          })
-        );
+    const authEmail = await AsyncStorage.getItem("auth_email");
+    const authPassword = await AsyncStorage.getItem("auth_password");
+
+    const userData = { userEmail: authEmail, password: authPassword };
+
+    if (userData.userEmail) {
+      try {
+        await dispatch(authLogin(userData));
+      } catch (error) {
+        console.log("Sorry, this user was deleted");
+        return error.message;
       }
-    });
+    }
   } catch (error) {
     return error.message;
   }
