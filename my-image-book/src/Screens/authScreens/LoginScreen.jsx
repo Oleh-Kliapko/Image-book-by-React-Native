@@ -22,14 +22,8 @@ import {
 } from "../../utils/toasts";
 import { authLogin } from "../../redux/auth/authOperations";
 
-const {
-  formInput,
-  input,
-  showPasswordBtn,
-  passwordInput,
-  isAccount,
-  isAccountText,
-} = authStyles;
+const { input, showPasswordBtn, passwordInput, isAccount, isAccountText } =
+  authStyles;
 
 const initialUserData = {
   userEmail: "",

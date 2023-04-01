@@ -6,7 +6,7 @@ import {
 } from "firebase/auth";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-import { auth, db } from "../../firebase/config";
+import { auth } from "../../firebase/config";
 import { authSlice } from "./authSlice";
 
 export const authRegistration =
@@ -30,7 +30,7 @@ export const authRegistration =
           userName: displayName,
           userEmail: email,
           avatar: photoURL,
-          isChangeUser: true,
+          isCurrentUser: true,
         })
       );
     } catch (error) {
@@ -59,7 +59,7 @@ export const authLogin =
           userName: displayName,
           userEmail: email,
           avatar: photoURL,
-          isChangeUser: true,
+          isCurrentUser: true,
         })
       );
 

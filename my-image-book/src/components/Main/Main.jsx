@@ -15,7 +15,7 @@ import { authChangeUser } from "../../redux/auth/authOperations";
 const AuthStack = createStackNavigator();
 
 const Main = () => {
-  const { isChangeUser } = useSelector(selectUser);
+  const { isCurrentUser } = useSelector(selectUser);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -25,7 +25,7 @@ const Main = () => {
   return (
     <NavigationContainer>
       <AuthStack.Navigator screenOptions={{ headerShown: false }}>
-        {!isChangeUser && (
+        {!isCurrentUser && (
           <>
             <AuthStack.Screen name="login" component={LoginScreen} />
             <AuthStack.Screen
@@ -34,14 +34,10 @@ const Main = () => {
             />
           </>
         )}
-        {isChangeUser && (
-          <>
-            <AuthStack.Screen name="home" component={Home} />
-            <AuthStack.Screen name="camera" component={CameraScreen} />
-            <AuthStack.Screen name="map" component={MapScreen} />
-            <AuthStack.Screen name="comments" component={CommentsScreen} />
-          </>
-        )}
+        {isCurrentUser && <AuthStack.Screen name="home" component={Home} />}
+        <AuthStack.Screen name="camera" component={CameraScreen} />
+        <AuthStack.Screen name="map" component={MapScreen} />
+        <AuthStack.Screen name="comments" component={CommentsScreen} />
       </AuthStack.Navigator>
     </NavigationContainer>
   );

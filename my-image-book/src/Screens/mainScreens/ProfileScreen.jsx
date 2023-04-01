@@ -11,16 +11,9 @@ import { selectUser } from "../../redux/auth/authSelectors";
 const ProfileScreen = ({ route }) => {
   const { userName, avatar } = useSelector(selectUser);
   const [photos, setPhotos] = useState([]);
-  // const [avatarUri, setAvatarUri] = useState(null); // get from Redux or null
-  // const [user, setUser] = useState(null); // get from Redux or null
 
   const { id, picture, title, descriptionLocation, latitude, longitude } =
     route.params;
-
-  // useEffect(() => {
-  //   setAvatarUri(avatar);
-  //   setUser(userName);
-  // }, [route.params]);
 
   // Delete after Redux
   useEffect(() => {

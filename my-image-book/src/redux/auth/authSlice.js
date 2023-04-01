@@ -5,7 +5,7 @@ const initialState = {
   userName: null,
   userEmail: null,
   avatar: null,
-  isChangeUser: false,
+  isCurrentUser: false,
 };
 
 export const authSlice = createSlice({
@@ -13,17 +13,13 @@ export const authSlice = createSlice({
   initialState,
   reducers: {
     updateUser: (state, { payload }) => {
-      const { userId, userName, userEmail, avatar, isChangeUser } = payload;
-      return { ...state, userId, userName, userEmail, avatar, isChangeUser };
+      const { userId, userName, userEmail, avatar, isCurrentUser } = payload;
+      return { ...state, userId, userName, userEmail, avatar, isCurrentUser };
     },
     updateAvatar: (state, { payload }) => ({
       ...state,
       avatar: payload.avatar,
     }),
     logoutUser: () => initialState,
-    // changeUser: (state, { payload }) => ({
-    //   ...state,
-    //   isChangeUser: payload,
-    // }),
   },
 });

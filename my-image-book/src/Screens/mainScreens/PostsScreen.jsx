@@ -12,7 +12,7 @@ import { selectUser } from "../../redux/auth/authSelectors";
 const { mainScreenWrapper, avatarImg, avatarName, avatarEmail } = screenStyles;
 
 const PostsScreen = ({ route }) => {
-  const { userName, email, avatar } = useSelector(selectUser);
+  const { userName, userEmail, avatar } = useSelector(selectUser);
 
   const [photos, setPhotos] = useState([]);
   const { id, picture, title, descriptionLocation, latitude, longitude } =
@@ -49,7 +49,7 @@ const PostsScreen = ({ route }) => {
           ></Image>
           <View>
             <Text style={avatarName}>{userName}</Text>
-            <Text style={avatarEmail}>{email}</Text>
+            <Text style={avatarEmail}>{userEmail}</Text>
           </View>
         </View>
       </View>
