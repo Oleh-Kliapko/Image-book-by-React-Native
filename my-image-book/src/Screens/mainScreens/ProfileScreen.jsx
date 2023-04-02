@@ -45,7 +45,7 @@ const ProfileScreen = ({ route }) => {
           paddingBottom: 16,
         }}
       >
-        <Avatar photoUri={avatar} fromScreen="profile" />
+        <Avatar fromScreen="profile" />
         <LogoutBtn />
         <Text style={globalStyles.title}>{userName}</Text>
         <FlatList

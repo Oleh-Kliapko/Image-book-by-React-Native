@@ -11,6 +11,13 @@ export const successLoginToast = () =>
     text2: "Manage your ImageBook collection",
   });
 
+export const successDeleteAvatarToast = () =>
+  Toast.show({
+    type: "success",
+    text1: "Congratulation!",
+    text2: "Your avatar was deleted",
+  });
+
 export const errorRegistrationToast = () =>
   Toast.show({
     type: "error",

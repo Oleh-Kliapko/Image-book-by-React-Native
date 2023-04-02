@@ -8,7 +8,6 @@ import {
   ScrollView,
   Image,
 } from "react-native";
-import "react-native-get-random-values";
 
 import { screenStyles } from "./screenStyles";
 import { CameraIcon, MapPinIcon, TrashIcon } from "../../components/svg";
@@ -20,9 +19,9 @@ const { cameraBox, cameraIcon, textStyle, inputStyle } = screenStyles;
 
 const initialValue = {
   id: null,
-  picture: "",
-  title: "",
-  descriptionLocation: "",
+  picture: null,
+  title: null,
+  descriptionLocation: null,
   latitude: null,
   longitude: null,
 };
@@ -42,7 +41,7 @@ const CreatePostsScreen = ({ route }) => {
       picture: route.params?.photoUri,
       latitude: route.params?.location.latitude,
       longitude: route.params?.location.longitude,
-      id: Date.now(),
+      id: Date.now().toString(),
     });
   }, [route.params]);
 

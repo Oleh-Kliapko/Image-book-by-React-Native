@@ -10,7 +10,10 @@ import CameraScreen from "../../Screens/secondaryScreens/CameraScreen/CameraScre
 import MapScreen from "../../Screens/secondaryScreens/MapScreen";
 import CommentsScreen from "../../Screens/secondaryScreens/CommentsScreen";
 import { selectUser } from "../../redux/auth/authSelectors";
-import { authChangeUser } from "../../redux/auth/authOperations";
+import {
+  authChangeUser,
+  authChangeUserNew,
+} from "../../redux/auth/authOperations";
 
 const AuthStack = createStackNavigator();
 

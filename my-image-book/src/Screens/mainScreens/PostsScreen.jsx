@@ -1,9 +1,8 @@
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { SafeAreaView, View, Text, Image, FlatList } from "react-native";
-import Toast from "react-native-toast-message";
 
-import { toastConfig, successLoginToast } from "../../utils/toasts";
+import { successLoginToast } from "../../utils/toasts";
 import { screenStyles } from "./screenStyles";
 import PostItem from "../../components/PostItem/PostItem";
 import Header from "../../components/Header/Header";
@@ -45,8 +44,8 @@ const PostsScreen = ({ route }) => {
         <View style={{ flexDirection: "row", alignItems: "center" }}>
           <Image
             style={avatarImg}
-            source={{ uri: avatar }} //Local photo for training - delete after end of project
-          ></Image>
+            source={{ uri: avatar ? avatar : null }} //Local photo for training - delete after end of project
+          />
           <View>
             <Text style={avatarName}>{userName}</Text>
             <Text style={avatarEmail}>{userEmail}</Text>
@@ -63,7 +62,6 @@ const PostsScreen = ({ route }) => {
           </View>
         )}
       />
-      <Toast position="top" topOffset={60} config={toastConfig} />
     </SafeAreaView>
   );
 };

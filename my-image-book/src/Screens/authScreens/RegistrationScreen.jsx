@@ -8,7 +8,6 @@ import {
   TextInput,
   ImageBackground,
 } from "react-native";
-import Toast from "react-native-toast-message";
 
 import { authStyles } from "./authSlyles";
 import { globalStyles } from "../../utils/globalStyles";
@@ -16,11 +15,7 @@ import KeyboardWrapper from "../../components/KeyboardWrapper/KeyboardWrapper";
 import Avatar from "../../components/Avatar/Avatar";
 import { MainButton } from "../../components/Buttons";
 import { EyeOffIcon, EyeOnIcon } from "../../components/svg";
-import {
-  toastConfig,
-  errorFormToast,
-  errorRegistrationToast,
-} from "../../utils/toasts";
+import { errorFormToast, errorRegistrationToast } from "../../utils/toasts";
 import { authRegistration } from "../../redux/auth/authOperations";
 
 const { input, showPasswordBtn, passwordInput, isAccount, isAccountText } =
@@ -101,7 +96,7 @@ const RegistrationScreen = ({ route }) => {
             paddingBottom: isKeyboard ? 32 : 78,
           }}
         >
-          <Avatar photoUri={userData.avatar} fromScreen="registration" />
+          <Avatar fromScreen="registration" />
           <Text style={globalStyles.title}>Registration</Text>
           <View>
             <TextInput
@@ -191,7 +186,6 @@ const RegistrationScreen = ({ route }) => {
           )}
         </View>
       </ImageBackground>
-      <Toast position="top" topOffset={60} config={toastConfig} />
     </KeyboardWrapper>
   );
 };

@@ -3,11 +3,14 @@ import {
   signInWithEmailAndPassword,
   updateProfile,
   signOut,
+  // onAuthStateChanged,
 } from "firebase/auth";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import { auth } from "../../firebase/config";
 import { authSlice } from "./authSlice";
+
+const { updateUser, updateAvatar, logoutUser } = authSlice.actions;
 
 export const authRegistration =
   ({ userName, userEmail, password, avatar }) =>
@@ -25,7 +28,7 @@ export const authRegistration =
       await AsyncStorage.setItem("auth_password", password);
 
       dispatch(
-        authSlice.actions.updateUser({
+        updateUser({
           userId: uid,
           userName: displayName,
           userEmail: email,
@@ -54,7 +57,7 @@ export const authLogin =
       await AsyncStorage.setItem("auth_password", password);
 
       dispatch(
-        authSlice.actions.updateUser({
+        updateUser({
           userId: uid,
           userName: displayName,
           userEmail: email,
@@ -72,7 +75,7 @@ export const authLogin =
 export const authLogout = () => async (dispatch) => {
   try {
     await signOut(auth);
-    dispatch(authSlice.actions.logoutUser());
+    dispatch(logoutUser());
     await AsyncStorage.removeItem("auth_email");
     await AsyncStorage.removeItem("auth_password");
     // dispatch(postsSlice.actions.reset());
@@ -101,10 +104,27 @@ export const authChangeUser = () => async (dispatch) => {
   }
 };
 
+// export const authChangeUserNew = () => async (dispatch) => {
+//   await onAuthStateChanged(auth, (user) => {
+//     console.log(user);
+//     if (user) {
+//       dispatch(
+//         updateUser({
+//           userId: user.uid,
+//           userName: user.displayName,
+//           userEmail: user.email,
+//           avatar: user.photoURL,
+//           isCurrentUser: true,
+//         })
+//       );
+//     }
+//   });
+// };
+
 export const changeAvatar = (avatar) => async (dispatch) => {
   try {
+    dispatch(updateAvatar({ avatar }));
     await updateProfile(auth.currentUser, { photoURL: avatar });
-    dispatch(authSlice.actions.updateAvatar({ avatar }));
   } catch (error) {
     return error.message;
   }

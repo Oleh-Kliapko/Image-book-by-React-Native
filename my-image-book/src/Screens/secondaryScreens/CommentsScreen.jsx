@@ -7,14 +7,13 @@ import {
   Image,
   Keyboard,
 } from "react-native";
-import Toast from "react-native-toast-message";
 
 import { secondaryScreensStyles } from "./secondaryScreensStyles";
 import KeyboardWrapper from "../../components/KeyboardWrapper/KeyboardWrapper";
 import Header from "../../components/Header/Header";
 import CommentCard from "../../components/CommentCard/CommentCard";
 import { SendIcon } from "../../components/svg";
-import { toastConfig, errorCommentsToast } from "../../utils/toasts";
+import { errorCommentsToast } from "../../utils/toasts";
 
 const { commentWrapper, commentIcon, inputStyle } = secondaryScreensStyles;
 
@@ -36,7 +35,7 @@ const CommentsScreen = ({ route }) => {
     setComments((prev) => [
       ...prev,
       {
-        id: Date.now(),
+        id: Date.now().toString(),
         textComment: text.trim(),
         dateComment: Date.now(),
       },
@@ -79,7 +78,6 @@ const CommentsScreen = ({ route }) => {
             </TouchableOpacity>
           </View>
         </View>
-        <Toast position="top" topOffset={60} config={toastConfig} />
       </KeyboardWrapper>
     </>
   );
