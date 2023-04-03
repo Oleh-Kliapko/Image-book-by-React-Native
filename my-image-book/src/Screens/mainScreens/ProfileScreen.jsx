@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { ImageBackground, View, Text, FlatList } from "react-native";
 
 import { globalStyles } from "../../utils/globalStyles";
@@ -7,31 +7,17 @@ import Avatar from "../../components/Avatar/Avatar";
 import PostItem from "../../components/PostItem/PostItem";
 import { LogoutBtn } from "../../components/Buttons";
 import { selectUser } from "../../redux/auth/authSelectors";
+import { selectPosts } from "../../redux/posts/postsSelectors";
+import { getPosts } from "../../redux/posts/postsOperations";
 
-const ProfileScreen = ({ route }) => {
-  const { userName, avatar } = useSelector(selectUser);
-  const [photos, setPhotos] = useState([]);
+const ProfileScreen = () => {
+  const { userName } = useSelector(selectUser);
+  const posts = useSelector(selectPosts);
+  const dispatch = useDispatch();
 
-  const { id, picture, title, descriptionLocation, latitude, longitude } =
-    route.params;
-
-  // Delete after Redux
   useEffect(() => {
-    if (id) {
-      setPhotos((prev) => [
-        ...prev,
-        {
-          id,
-          picture,
-          title,
-          descriptionLocation,
-          latitude,
-          longitude,
-          comments: [],
-        },
-      ]);
-    }
-  }, [id]);
+    dispatch(getPosts());
+  }, [dispatch]);
 
   return (
     <ImageBackground
@@ -49,11 +35,11 @@ const ProfileScreen = ({ route }) => {
         <LogoutBtn />
         <Text style={globalStyles.title}>{userName}</Text>
         <FlatList
-          data={photos}
-          keyExtractor={(photo) => photo.id}
-          renderItem={(photo) => (
+          data={posts}
+          keyExtractor={(post) => post.idPost}
+          renderItem={(post) => (
             <View style={{ marginBottom: 32 }}>
-              <PostItem photo={photo} fromScreen="profile" />
+              <PostItem post={post} fromScreen="profile" />
             </View>
           )}
         />

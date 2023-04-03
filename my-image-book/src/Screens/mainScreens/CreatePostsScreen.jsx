@@ -8,42 +8,44 @@ import {
   ScrollView,
   Image,
 } from "react-native";
+import { useSelector, useDispatch } from "react-redux";
 
 import { screenStyles } from "./screenStyles";
 import { CameraIcon, MapPinIcon, TrashIcon } from "../../components/svg";
 import KeyboardWrapper from "../../components/KeyboardWrapper/KeyboardWrapper";
 import { MainButton } from "../../components/Buttons";
 import Header from "../../components/Header/Header";
+import { selectPictureData } from "../../redux/posts/postsSelectors";
+import {
+  uploadPostToServer,
+  getPosts,
+} from "../../redux/posts/postsOperations";
+import { successAddPostToast } from "../../utils/toasts";
 
 const { cameraBox, cameraIcon, textStyle, inputStyle } = screenStyles;
 
 const initialValue = {
-  id: null,
   picture: null,
   title: null,
   descriptionLocation: null,
   latitude: null,
   longitude: null,
+  comments: [],
 };
 
-const CreatePostsScreen = ({ route }) => {
+const CreatePostsScreen = () => {
   const [value, setValue] = useState(initialValue);
   const [isActiveBtn, setIsActiveBtn] = useState(false);
   const [isKeyboard, setIsKeyboard] = useState(false);
   const navigation = useNavigation();
+  const { picture, latitude, longitude } = useSelector(selectPictureData);
+  const dispatch = useDispatch();
 
-  const { id, picture, title, descriptionLocation, latitude, longitude } =
-    value;
+  const { title, descriptionLocation } = value;
 
   useEffect(() => {
-    setValue({
-      ...value,
-      picture: route.params?.photoUri,
-      latitude: route.params?.location.latitude,
-      longitude: route.params?.location.longitude,
-      id: Date.now().toString(),
-    });
-  }, [route.params]);
+    setValue({ ...value, picture, latitude, longitude });
+  }, [picture, latitude, longitude]);
 
   useEffect(() => {
     if (title && descriptionLocation && picture) {
@@ -56,24 +58,12 @@ const CreatePostsScreen = ({ route }) => {
   };
 
   const onSubmitForm = () => {
+    dispatch(uploadPostToServer(value));
+    dispatch(getPosts());
     setIsKeyboard(false);
     setValue(initialValue);
-    navigation.navigate("Profile", {
-      id,
-      picture,
-      title,
-      descriptionLocation,
-      latitude,
-      longitude,
-    }); // Delete after Redux
-    navigation.navigate("Posts", {
-      id,
-      picture,
-      title,
-      descriptionLocation,
-      latitude,
-      longitude,
-    }); // Delete after Redux
+    successAddPostToast();
+    navigation.navigate("Posts");
   };
 
   return (
@@ -109,7 +99,7 @@ const CreatePostsScreen = ({ route }) => {
                 >
                   <Image
                     style={{ height: 240, width: "100%", borderRadius: 8 }}
-                    source={{ uri: picture }}
+                    source={{ uri: picture ? picture : null }}
                   />
                   <View style={cameraIcon}>
                     <CameraIcon />

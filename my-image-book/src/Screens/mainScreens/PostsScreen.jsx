@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { SafeAreaView, View, Text, Image, FlatList } from "react-native";
 
 import { successLoginToast } from "../../utils/toasts";
@@ -7,35 +7,21 @@ import { screenStyles } from "./screenStyles";
 import PostItem from "../../components/PostItem/PostItem";
 import Header from "../../components/Header/Header";
 import { selectUser } from "../../redux/auth/authSelectors";
+import { selectPosts } from "../../redux/posts/postsSelectors";
+import { getPosts } from "../../redux/posts/postsOperations";
 
 const { mainScreenWrapper, avatarImg, avatarName, avatarEmail } = screenStyles;
 
-const PostsScreen = ({ route }) => {
+const PostsScreen = () => {
   const { userName, userEmail, avatar } = useSelector(selectUser);
-
-  const [photos, setPhotos] = useState([]);
-  const { id, picture, title, descriptionLocation, latitude, longitude } =
-    route.params;
+  const posts = useSelector(selectPosts);
+  const dispatch = useDispatch();
 
   useEffect(() => successLoginToast(), []);
 
-  // Delete after Redux
   useEffect(() => {
-    if (id) {
-      setPhotos((prev) => [
-        ...prev,
-        {
-          id,
-          picture,
-          title,
-          descriptionLocation,
-          latitude,
-          longitude,
-          comments: [],
-        },
-      ]);
-    }
-  }, [id]);
+    dispatch(getPosts());
+  }, [dispatch]);
 
   return (
     <SafeAreaView style={{ marginBottom: 200 }}>
@@ -54,11 +40,11 @@ const PostsScreen = ({ route }) => {
       </View>
       <FlatList
         style={{ paddingHorizontal: 16 }}
-        data={photos}
-        keyExtractor={(photo) => photo.id}
-        renderItem={(photo) => (
+        data={posts}
+        keyExtractor={(post) => post.idPost}
+        renderItem={(post) => (
           <View style={{ marginBottom: 32 }}>
-            <PostItem photo={photo} fromScreen="posts" />
+            <PostItem post={post} fromScreen="posts" />
           </View>
         )}
       />

@@ -18,6 +18,13 @@ export const successDeleteAvatarToast = () =>
     text2: "Your avatar was deleted",
   });
 
+export const successAddPostToast = () =>
+  Toast.show({
+    type: "info",
+    text1: "Your new post was added",
+    text2: "Like it and leave a comment :)",
+  });
+
 export const errorRegistrationToast = () =>
   Toast.show({
     type: "error",

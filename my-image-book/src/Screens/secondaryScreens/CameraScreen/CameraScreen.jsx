@@ -1,14 +1,8 @@
 import { format } from "date-fns";
 import { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
-import {
-  Text,
-  View,
-  TouchableOpacity,
-  // Image,
-  ImageBackground,
-} from "react-native";
+import { Text, View, TouchableOpacity, ImageBackground } from "react-native";
 import { Camera } from "expo-camera";
 import * as MediaLibrary from "expo-media-library";
 import * as Location from "expo-location";
@@ -20,6 +14,8 @@ import { SavePhotoIcon, FlipIcon } from "../../../components/svg";
 import { Loading } from "../../../utils/loading";
 import { changeAvatar } from "../../../redux/auth/authOperations";
 import { storage } from "../../../firebase/config";
+import { selectPosts } from "../../../redux/posts/postsSelectors";
+import { postsSlice } from "../../../redux/posts/postsSlice";
 
 const {
   photoView,
@@ -39,6 +35,7 @@ const CameraScreen = ({ route }) => {
   const [photo, setPhoto] = useState(null);
   const [location, setLocation] = useState(null);
   const [loading, setLoading] = useState(false);
+  const posts = useSelector(selectPosts);
 
   const navigation = useNavigation();
   const dispatch = useDispatch();
@@ -87,7 +84,13 @@ const CameraScreen = ({ route }) => {
   const savePhoto = async () => {
     const downloadedPhoto = await uploadPhotoToServer();
     if (fromScreen === "createPost") {
-      console.log("Change photo for post"); // Change after
+      dispatch(
+        postsSlice.actions.updatePicture({
+          picture: downloadedPhoto,
+          latitude: location.latitude,
+          longitude: location.longitude,
+        })
+      );
     } else dispatch(changeAvatar(downloadedPhoto));
 
     switch (fromScreen) {
@@ -98,10 +101,7 @@ const CameraScreen = ({ route }) => {
         navigation.navigate("Profile", { photoUri: downloadedPhoto });
         break;
       case "createPost":
-        navigation.navigate("CreatePost", {
-          photoUri: downloadedPhoto,
-          location: location,
-        });
+        navigation.navigate("CreatePost");
         break;
       default:
         break;

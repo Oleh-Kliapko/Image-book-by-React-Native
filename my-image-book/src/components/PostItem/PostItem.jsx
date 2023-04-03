@@ -14,12 +14,12 @@ import {
 
 const { imgTitle, textStyle, locationStyle, infoWrapper } = postItemStyles;
 
-const PostItem = ({ photo, fromScreen }) => {
+const PostItem = ({ post, fromScreen }) => {
   const [likes, setLikes] = useState(0);
-
   const navigation = useNavigation();
+
   const { picture, title, descriptionLocation, latitude, longitude, comments } =
-    photo.item;
+    post.item;
   const numberComments = comments.length;
 
   const handleMapScreen = () => {
@@ -75,7 +75,7 @@ const PostItem = ({ photo, fromScreen }) => {
 };
 
 PostItem.propTypes = {
-  photo: PropTypes.object.isRequired,
+  post: PropTypes.array.isRequired,
   fromScreen: PropTypes.string,
 };
 

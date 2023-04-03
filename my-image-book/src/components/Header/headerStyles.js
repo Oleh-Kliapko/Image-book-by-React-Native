@@ -3,6 +3,7 @@ import { fonts } from "../../utils/fonts";
 
 export const headerStyles = StyleSheet.create({
   header: {
+    marginTop: 20,
     height: 80,
     width: "100%",
     borderBottomWidth: 0.5,
