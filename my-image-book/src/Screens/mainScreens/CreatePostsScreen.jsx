@@ -30,7 +30,6 @@ const initialValue = {
   descriptionLocation: null,
   latitude: null,
   longitude: null,
-  comments: [],
   likes: 0,
 };
 

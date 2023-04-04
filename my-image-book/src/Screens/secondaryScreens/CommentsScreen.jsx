@@ -7,6 +7,7 @@ import {
   Image,
   Keyboard,
 } from "react-native";
+import { useDispatch, useSelector } from "react-redux";
 
 import { secondaryScreensStyles } from "./secondaryScreensStyles";
 import KeyboardWrapper from "../../components/KeyboardWrapper/KeyboardWrapper";
@@ -14,32 +15,44 @@ import Header from "../../components/Header/Header";
 import CommentCard from "../../components/CommentCard/CommentCard";
 import { SendIcon } from "../../components/svg";
 import { errorCommentsToast } from "../../utils/toasts";
+import {
+  uploadComments,
+  getCommentsByPostId,
+  getNumberComments,
+} from "../../redux/posts/postsOperations";
+import { selectComments } from "../../redux/posts/postsSelectors";
 
 const { commentWrapper, commentIcon, inputStyle } = secondaryScreensStyles;
 
 const CommentsScreen = ({ route }) => {
-  const [pictureUri, setPictureUri] = useState(null);
   const [text, setChangeText] = useState(null);
-  const [comments, setComments] = useState([]);
   const [isActiveInput, setIsActiveInput] = useState(false);
+  const dispatch = useDispatch();
+  const comments = useSelector(selectComments);
+
+  const { idPost, picture } = route.params;
 
   useEffect(() => {
-    setPictureUri(route.params?.picture);
-  }, [route.params]);
+    dispatch(getCommentsByPostId(idPost));
+  }, [dispatch]);
 
   const handleComment = () => {
     if (!text || text.length < 10 || text.length > 200) {
       errorCommentsToast();
       return;
     }
-    setComments((prev) => [
-      ...prev,
-      {
-        id: Date.now().toString(),
-        textComment: text.trim(),
-        dateComment: Date.now(),
-      },
-    ]);
+
+    const newComment = {
+      idComment: Date.now().toString(),
+      textComment: text.trim(),
+      dateComment: Date.now(),
+      idPost,
+    };
+
+    dispatch(uploadComments(newComment));
+    dispatch(getCommentsByPostId(idPost));
+    dispatch(getNumberComments(idPost));
+
     setChangeText("");
     Keyboard.dismiss();
   };
@@ -49,11 +62,11 @@ const CommentsScreen = ({ route }) => {
       <KeyboardWrapper>
         <Header title="Comments" />
         <View style={commentWrapper}>
-          <Image style={commentIcon} source={{ uri: pictureUri }} />
+          <Image style={commentIcon} source={{ uri: picture }} />
           <FlatList
             style={{ marginTop: 8 }}
             data={comments}
-            keyExtractor={(comment) => comment.id}
+            keyExtractor={(comment) => comment.idComment}
             renderItem={(comment) => <CommentCard comment={comment} />}
           />
           <View style={{ paddingVertical: 16, justifyContent: "center" }}>

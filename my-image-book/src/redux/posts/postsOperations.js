@@ -5,16 +5,14 @@ import {
   getDoc,
   updateDoc,
   query,
-  getCountFromServer,
   where,
   doc,
-  FieldValue,
 } from "firebase/firestore";
 import { db } from "../../firebase/config";
 
 import { postsSlice } from "./postsSlice";
 
-export const uploadPostToServer = (post) => async (dispatch, getState) => {
+export const uploadPostToServer = (post) => async (_, getState) => {
   const { userId } = getState().auth;
 
   try {
@@ -46,7 +44,7 @@ export const getPosts = () => async (dispatch, getState) => {
   }
 };
 
-export const changeLikes = (idPost) => async (dispatch, getState) => {
+export const changeLikes = (idPost) => async (dispatch) => {
   try {
     const postRef = doc(db, "posts", idPost);
     const countLikes = (await getDoc(postRef)).data().likes;
@@ -55,7 +53,51 @@ export const changeLikes = (idPost) => async (dispatch, getState) => {
       likes: countLikes + 1,
     });
 
-    dispatch(postsSlice.actions.updateLikes());
+    dispatch(
+      postsSlice.actions.updateLikes({ id: idPost, likes: countLikes + 1 })
+    );
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
+export const uploadComments = (comment) => async (_, getState) => {
+  const { userId } = getState().auth;
+
+  try {
+    await addDoc(collection(db, "comments"), {
+      ...comment,
+      userId,
+    });
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
+export const getCommentsByPostId = (idPost) => async (dispatch) => {
+  try {
+    const q = query(collection(db, "comments"), where("idPost", "==", idPost));
+    const querySnapshot = await getDocs(q);
+
+    const allComments = [];
+    querySnapshot.forEach((doc) => allComments.push(doc.data()));
+
+    dispatch(postsSlice.actions.updateComments(allComments));
+    return allComments;
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
+export const getNumberComments = (idPost) => async (dispatch) => {
+  try {
+    const q = query(collection(db, "comments"), where("idPost", "==", idPost));
+    const querySnapshot = await getDocs(q);
+
+    const allComments = [];
+    querySnapshot.forEach((doc) => allComments.push(doc.data()));
+
+    return allComments.length;
   } catch (error) {
     console.log(error.message);
   }
