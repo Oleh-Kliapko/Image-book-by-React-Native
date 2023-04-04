@@ -16,5 +16,8 @@ export const postsSlice = createSlice({
     updatePicture: (state, { payload }) => {
       return { ...state, pictureData: payload };
     },
+    updateLikes: (state, { payload }) => {
+      return { ...state, posts: payload };
+    },
   },
 });

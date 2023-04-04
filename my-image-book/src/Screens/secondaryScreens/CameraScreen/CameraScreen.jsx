@@ -156,6 +156,16 @@ const CameraScreen = ({ route }) => {
                   <SavePhotoIcon />
                 </TouchableOpacity>
               )}
+              <TouchableOpacity
+                style={{
+                  position: "absolute",
+                  bottom: 100,
+                  alignSelf: "center",
+                }}
+                onPress={() => navigation.goBack()}
+              >
+                <Text style={{ color: "#FFF", fontSize: 20 }}>Go back</Text>
+              </TouchableOpacity>
             </View>
           </Camera>
         ) : (

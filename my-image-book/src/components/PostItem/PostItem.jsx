@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
-import { useState } from "react";
 import { View, Text, Image, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import { useDispatch } from "react-redux";
 
 import { postItemStyles } from "./postItemStyles";
 import {
@@ -11,16 +11,29 @@ import {
   LikeOnIcon,
   LikeOffIcon,
 } from "../svg";
+import { changeLikes } from "../../redux/posts/postsOperations";
 
 const { imgTitle, textStyle, locationStyle, infoWrapper } = postItemStyles;
 
 const PostItem = ({ post, fromScreen }) => {
-  const [likes, setLikes] = useState(0);
   const navigation = useNavigation();
+  const dispatch = useDispatch();
 
-  const { picture, title, descriptionLocation, latitude, longitude, comments } =
-    post.item;
+  const {
+    picture,
+    title,
+    descriptionLocation,
+    latitude,
+    longitude,
+    comments,
+    likes,
+    idPost,
+  } = post.item;
   const numberComments = comments.length;
+
+  const handleLikes = () => {
+    dispatch(changeLikes(idPost));
+  };
 
   const handleMapScreen = () => {
     navigation.navigate("map", { latitude, longitude, fromScreen });
@@ -50,10 +63,7 @@ const PostItem = ({ post, fromScreen }) => {
           </Text>
         </TouchableOpacity>
         {fromScreen === "profile" && (
-          <TouchableOpacity
-            style={infoWrapper}
-            onPress={() => setLikes(likes + 1)}
-          >
+          <TouchableOpacity style={infoWrapper} onPress={handleLikes}>
             {likes ? <LikeOnIcon /> : <LikeOffIcon />}
             <Text
               style={{
@@ -75,7 +85,7 @@ const PostItem = ({ post, fromScreen }) => {
 };
 
 PostItem.propTypes = {
-  post: PropTypes.array.isRequired,
+  post: PropTypes.object.isRequired,
   fromScreen: PropTypes.string,
 };
 

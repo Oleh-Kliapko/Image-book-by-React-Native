@@ -2,10 +2,13 @@ import {
   addDoc,
   collection,
   getDocs,
+  getDoc,
+  updateDoc,
   query,
   getCountFromServer,
   where,
   doc,
+  FieldValue,
 } from "firebase/firestore";
 import { db } from "../../firebase/config";
 
@@ -38,6 +41,21 @@ export const getPosts = () => async (dispatch, getState) => {
 
     dispatch(postsSlice.actions.updatePosts(allPosts));
     return allPosts;
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
+export const changeLikes = (idPost) => async (dispatch, getState) => {
+  try {
+    const postRef = doc(db, "posts", idPost);
+    const countLikes = (await getDoc(postRef)).data().likes;
+
+    await updateDoc(postRef, {
+      likes: countLikes + 1,
+    });
+
+    dispatch(postsSlice.actions.updateLikes());
   } catch (error) {
     console.log(error.message);
   }

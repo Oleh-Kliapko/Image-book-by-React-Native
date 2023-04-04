@@ -31,12 +31,14 @@ const initialValue = {
   latitude: null,
   longitude: null,
   comments: [],
+  likes: 0,
 };
 
 const CreatePostsScreen = () => {
   const [value, setValue] = useState(initialValue);
   const [isActiveBtn, setIsActiveBtn] = useState(false);
   const [isKeyboard, setIsKeyboard] = useState(false);
+
   const navigation = useNavigation();
   const { picture, latitude, longitude } = useSelector(selectPictureData);
   const dispatch = useDispatch();
@@ -99,7 +101,7 @@ const CreatePostsScreen = () => {
                 >
                   <Image
                     style={{ height: 240, width: "100%", borderRadius: 8 }}
-                    source={{ uri: picture ? picture : null }}
+                    source={{ uri: picture }}
                   />
                   <View style={cameraIcon}>
                     <CameraIcon />
