@@ -28,10 +28,7 @@ const PostsScreen = () => {
       <Header title="Posts" />
       <View style={mainScreenWrapper}>
         <View style={{ flexDirection: "row", alignItems: "center" }}>
-          <Image
-            style={avatarImg}
-            source={{ uri: avatar ? avatar : null }} //Local photo for training - delete after end of project
-          />
+          <Image style={avatarImg} source={{ uri: avatar ? avatar : null }} />
           <View>
             <Text style={avatarName}>{userName}</Text>
             <Text style={avatarEmail}>{userEmail}</Text>

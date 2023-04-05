@@ -31,6 +31,7 @@ const initialValue = {
   latitude: null,
   longitude: null,
   likes: 0,
+  countComments: 0,
 };
 
 const CreatePostsScreen = () => {

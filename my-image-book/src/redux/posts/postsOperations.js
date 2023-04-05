@@ -78,26 +78,21 @@ export const getCommentsByPostId = (idPost) => async (dispatch) => {
   try {
     const q = query(collection(db, "comments"), where("idPost", "==", idPost));
     const querySnapshot = await getDocs(q);
-
     const allComments = [];
     querySnapshot.forEach((doc) => allComments.push(doc.data()));
+
+    const postRef = doc(db, "posts", idPost);
+    await updateDoc(postRef, {
+      countComments: allComments.length,
+    });
 
     dispatch(postsSlice.actions.updateComments(allComments));
-    return allComments;
-  } catch (error) {
-    console.log(error.message);
-  }
-};
-
-export const getNumberComments = (idPost) => async (dispatch) => {
-  try {
-    const q = query(collection(db, "comments"), where("idPost", "==", idPost));
-    const querySnapshot = await getDocs(q);
-
-    const allComments = [];
-    querySnapshot.forEach((doc) => allComments.push(doc.data()));
-
-    return allComments.length;
+    dispatch(
+      postsSlice.actions.updateCountComments({
+        id: idPost,
+        countComments: allComments.length,
+      })
+    );
   } catch (error) {
     console.log(error.message);
   }

@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { useNavigation } from "@react-navigation/native";
 import { View, Text, TouchableOpacity } from "react-native";
 
@@ -28,3 +29,7 @@ const Header = ({ title }) => {
 };
 
 export default Header;
+
+Header.propTypes = {
+  title: PropTypes.string,
+};

@@ -31,5 +31,15 @@ export const postsSlice = createSlice({
       ...state,
       comments: payload,
     }),
+    updateCountComments: (state, { payload }) => {
+      const { id, countComments } = payload;
+      const updatedPosts = state.posts.map((post) => {
+        if (post.idPost === id) {
+          return { ...post, countComments };
+        }
+        return post;
+      });
+      return { ...state, posts: updatedPosts };
+    },
   },
 });

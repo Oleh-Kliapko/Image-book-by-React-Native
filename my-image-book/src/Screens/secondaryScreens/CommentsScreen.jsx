@@ -18,7 +18,6 @@ import { errorCommentsToast } from "../../utils/toasts";
 import {
   uploadComments,
   getCommentsByPostId,
-  getNumberComments,
 } from "../../redux/posts/postsOperations";
 import { selectComments } from "../../redux/posts/postsSelectors";
 
@@ -51,7 +50,6 @@ const CommentsScreen = ({ route }) => {
 
     dispatch(uploadComments(newComment));
     dispatch(getCommentsByPostId(idPost));
-    dispatch(getNumberComments(idPost));
 
     setChangeText("");
     Keyboard.dismiss();

@@ -1,5 +1,4 @@
 import PropTypes from "prop-types";
-import { useEffect, useState } from "react";
 import { View, Text, Image, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { useDispatch } from "react-redux";
@@ -12,17 +11,13 @@ import {
   LikeOnIcon,
   LikeOffIcon,
 } from "../svg";
-import {
-  changeLikes,
-  getNumberComments,
-} from "../../redux/posts/postsOperations";
+import { changeLikes } from "../../redux/posts/postsOperations";
 
 const { imgTitle, textStyle, locationStyle, infoWrapper } = postItemStyles;
 
 const PostItem = ({ post, fromScreen }) => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
-  const [numberComments, setNumberComments] = useState(null);
 
   const {
     picture,
@@ -31,12 +26,9 @@ const PostItem = ({ post, fromScreen }) => {
     latitude,
     longitude,
     likes,
+    countComments,
     idPost,
   } = post.item;
-
-  useEffect(() => {
-    dispatch(getNumberComments(idPost)).then((res) => setNumberComments(res));
-  }, [dispatch]);
 
   const handleLikes = () => {
     dispatch(changeLikes(idPost));
@@ -59,14 +51,14 @@ const PostItem = ({ post, fromScreen }) => {
       <Text style={imgTitle}>{title}</Text>
       <View style={infoWrapper}>
         <TouchableOpacity style={infoWrapper} onPress={handleCommentsScreen}>
-          {numberComments ? <MessageOnIcon /> : <MessageOffIcon />}
+          {countComments ? <MessageOnIcon /> : <MessageOffIcon />}
           <Text
             style={{
               ...textStyle,
-              color: numberComments ? "#212121" : "#BDBDBD",
+              color: countComments ? "#212121" : "#BDBDBD",
             }}
           >
-            {numberComments}
+            {countComments}
           </Text>
         </TouchableOpacity>
         {fromScreen === "profile" && (
