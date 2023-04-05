@@ -4,6 +4,7 @@
     "slug": "my-image-book",
     "version": "1.0.0",
     "orientation": "default",
+    "platforms": ["android", "ios"],
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "splash": {
@@ -15,11 +16,9 @@
       "**/*"
     ],
     "ios": {
-      "bundleIdentifier": "com.olehkliapko.imagebookreactnative.ios",
       "supportsTablet": true
     },
     "android": {
-      "package": "com.olehkliapko.imagebookreactnative.android",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"

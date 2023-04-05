@@ -1,12 +1,13 @@
 import { format } from "date-fns";
 import { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
 import { Text, View, TouchableOpacity, ImageBackground } from "react-native";
 import { Camera } from "expo-camera";
 import * as MediaLibrary from "expo-media-library";
 import * as Location from "expo-location";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import * as ImageManipulator from "expo-image-manipulator";
 
 import { cameraStyles } from "./cameraStyles";
 import { errorAcceptCameraToast } from "../../../utils/toasts";
@@ -14,7 +15,6 @@ import { SavePhotoIcon, FlipIcon } from "../../../components/svg";
 import { Loading } from "../../../utils/loading";
 import { changeAvatar } from "../../../redux/auth/authOperations";
 import { storage } from "../../../firebase/config";
-import { selectPosts } from "../../../redux/posts/postsSelectors";
 import { postsSlice } from "../../../redux/posts/postsSlice";
 
 const {
@@ -35,7 +35,6 @@ const CameraScreen = ({ route }) => {
   const [photo, setPhoto] = useState(null);
   const [location, setLocation] = useState(null);
   const [loading, setLoading] = useState(false);
-  const posts = useSelector(selectPosts);
 
   const navigation = useNavigation();
   const dispatch = useDispatch();
@@ -64,7 +63,12 @@ const CameraScreen = ({ route }) => {
   };
 
   const uploadPhotoToServer = async () => {
-    const res = await fetch(photo);
+    const { uri } = await ImageManipulator.manipulateAsync(
+      photo,
+      [{ resize: { width: 800 } }],
+      { compress: 0.7, format: ImageManipulator.SaveFormat.JPEG }
+    );
+    const res = await fetch(uri);
     const file = await res.blob();
     const uniqueId = Date.now().toString();
     const storageRef =
